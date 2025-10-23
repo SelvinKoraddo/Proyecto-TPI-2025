@@ -21,6 +21,11 @@ body {
 #inic,#tecnicos{
   scroll-margin-top: 230px; 
 }
+.containerH {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -55,8 +60,8 @@ nav {
 .logo {
   font-size: 2rem;
   font-weight: bold;
-  color: #ffffff;
-  
+  color: #0707d4d9;
+ 
 }
 
 .nav-links {
@@ -64,7 +69,8 @@ nav {
   gap: 2rem;
   list-style: none;
   font-size: 20px;
-  
+  padding-left: 0;
+  margin-left: -100px;
 }
 
 .nav-links a {
@@ -72,6 +78,7 @@ nav {
   color: #ffffff;
   font-weight: 500;
   transition: color 0.3s ease;
+  
 }
 
 .nav-links a:hover {
@@ -81,6 +88,7 @@ nav {
 .auth-buttons {
   display: flex;
   gap: 1rem;
+  justify-self: end;
 }
 
 .btn {
@@ -139,7 +147,7 @@ main {
 }
 
 .search-section {
-  background: rgb(225, 222, 222);
+  background: rgb(255, 255, 255);
   border-radius: 20px;
   padding: 3rem;
   margin-bottom: 3rem;
@@ -269,7 +277,7 @@ main {
 }
 
 .cta-section {
-  background: rgb(225, 222, 222);
+  background: white;
   border-radius: 20px;
   padding: 3rem;
   text-align: center;

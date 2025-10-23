@@ -26,9 +26,8 @@ session_start();
                 <i class="bi bi-wrench"> TechFix</i>
             </div>
             <ul class="nav-links">
-                <li><a href="#inic">Inicio</a></li>
-                <li><a href="#serv">Servicios</a></li>
-                <li><a href="#Cf">Cómo Funciona</a></li>
+                <li><a href="#inic">Solicitudes Recibidas</a></li>
+                <li><a href="#Cf">Citas Programadas</a></li>
                 <li><a href="#historial">Historial</a></li>
                 <li><a href="#">Perfil</a></li>
             </ul>
@@ -46,76 +45,8 @@ session_start();
             <h1 id="inic">Servicios Técnicos Profesionales</h1>
             <p>Conectamos técnicos especializados con clientes que necesitan reparaciones de electrodomésticos y
                 servicios de construcción</p>
-        </section>
-
-        <section class="search-section">
-            <h2 id="tperfect">Encuentra el Técnico Perfecto</h2>
-
-            <form class="search-form" action="BuscarTecnicos.php" method="GET">
-                <div class="form-group">
-                    <label for="service-type">Tipo de Servicio</label>
-                    <select id="service-type" name="especialidad">
-                        <option value="">Selecciona un servicio</option>
-                        <option value="Refrigeradora">Reparación Refrigeradora</option>
-                        <option value="Lavadora">Reparación Lavadora</option>
-                        <option value="Horno">Reparación Horno</option>
-                        <option value="Televisor">Reparación Televisor</option>
-                        <option value="Albañilería">Servicios de Albañilería</option>
-                        <option value="Electricidad">Servicios Eléctricos</option>
-                    </select>
-
-                </div>
-                <button type="submit" class="btn btn-primary">Buscar Técnicos</button>
-
-            </form>
-        </section>
-        <h1 id="serv">Servicios</h1>
-        <section class="service-categories">
-
-            <div class="service-card" onclick="window.location.href='BuscarTecnicos.php?especialidad=Refrigeradora'">
-                <div class="service-img">
-                    <img src="./imagenes/refri.jpg" alt="Imagen de refrigeradora" />
-                </div>
-                <h3>Refrigeradoras</h3>
-                <p>Reparación y mantenimiento de refrigeradoras de todas las marcas</p>
-            </div>
-            <div class="service-card" onclick="window.location.href='BuscarTecnicos.php?especialidad=Lavadoras'">
-                <div class="service-img">
-                    <img src="./imagenes/lavadora.jpg" alt="Imagen de lavadora" />
-                </div>
-                <h3>Lavadoras</h3>
-                <p>Servicio especializado en lavadoras y secadoras</p>
-            </div>
-            <div class="service-card" onclick="window.location.href='BuscarTecnicos.php?especialidad=Hornos'">
-                <div class="service-img">
-                    <img src="./imagenes/horno.jpg" alt="Imagen de lavadora" />
-                </div>
-                <h3>Hornos</h3>
-                <p>Reparación de hornos eléctricos y a gas</p>
-            </div>
-            <div class="service-card" onclick="window.location.href='BuscarTecnicos.php?especialidad=Televisores'">
-                <div class="service-img">
-                    <img src="./imagenes/tv.jpg" alt="Imagen de lavadora" />
-                </div>
-                <h3>Televisores</h3>
-                <p>Reparación de TV LED, LCD, OLED y Smart TV</p>
-            </div>
-            <div class="service-card" onclick="window.location.href='BuscarTecnicos.php?especialidad=Albañilería'">
-                <div class="service-img">
-                    <img src="./imagenes/construccion.jpg" alt="Imagen de lavadora" />
-                </div>
-                <h3>Albañilería</h3>
-                <p>Servicios de construcción y remodelación</p>
-            </div>
-            <div class="service-card" onclick="window.location.href='BuscarTecnicos.php?especialidad=Electricidad'">
-                <div class="service-img">
-                    <img src="./imagenes/electricidad.jpg" alt="Imagen de lavadora" />
-                </div>
-                <h3>Electricidad</h3>
-                <p>Instalaciones y reparaciones eléctricas</p>
-            </div>
-        </section>
-
+        </section>     
+        
         <section class="features">
             <h2 id="Cf">¿Cómo Funciona?</h2>
             <div class="features-grid">
@@ -147,7 +78,7 @@ session_start();
                 <a href="Pago.php" class="btn btn-outline">Realizar pago</a>
             </div>
         </section>
-
+<!-- SECCION PARA MOSTRAR HISTORIAL CITAS -->
         <section class="cta-section">
             <h2 id="historial">Historial Servicios</h2>
             <!-- Navegación con pestañas -->
@@ -177,6 +108,7 @@ session_start();
 
             </div>
         </section>
+<!-- FIN SECCION PARA MOSTRAR HISTORIAL CITAS -->
     </main>
 
     <footer>
