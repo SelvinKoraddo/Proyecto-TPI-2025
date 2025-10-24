@@ -1,0 +1,112 @@
+/* --- CSS para Contactar Técnico (Versión más fresca) --- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #d0e7ff; /* azul clarito suave */
+  padding: 2rem 1rem;
+}
+
+h2 {
+  text-align: center;
+  color: #1f3a93; /* azul oscuro */
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+}
+
+form#contactForm {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+form#contactForm label {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #1f2937;
+}
+
+form#contactForm textarea {
+  padding: 1rem;
+  border: 2px solid #cfd8e3;
+  border-radius: 12px;
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 150px;
+  transition: border-color 0.3s ease;
+}
+
+form#contactForm textarea:focus {
+  outline: none;
+  border-color: #4a90e2; /* azul vivo al enfocar */
+}
+
+form#contactForm button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 25px;
+  font-weight: 500;
+  cursor: pointer;
+  background: #4a90e2; /* azul más vivo */
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+form#contactForm button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+#respuesta {
+  max-width: 600px;
+  margin: 1rem auto 0 auto;
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 500;
+}
+
+#respuesta.success {
+  background-color: #d4edda; /* verde clarito */
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+#respuesta.error {
+  background-color: #f8d7da; /* rojo clarito */
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Mensaje para no logueados */
+p {
+  text-align: center;
+  color: #1f3a93;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  form#contactForm {
+    padding: 1.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+}

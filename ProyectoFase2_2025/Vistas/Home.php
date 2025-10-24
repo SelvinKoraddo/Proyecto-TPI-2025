@@ -9,11 +9,10 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechFix - Servicios Técnicos Profesionales</title>
 
-    <script src="../Vistas/script/script.js" defer></script>
-    <!-- Bootstrap CSS v5.3.8 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="../Vistas/css/estilos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../Vistas/script/script.js" defer></script>
 </head>
 
 <body>
@@ -34,7 +33,6 @@ session_start();
         </nav>
     </header>
 
-
     <main class="container">
         <section class="hero">
             <h1 id="inic">Servicios Técnicos Profesionales</h1>
@@ -48,25 +46,31 @@ session_start();
                     <label for="service-type">Tipo de Servicio</label>
                     <select id="service-type">
                         <option value="">Selecciona un servicio</option>
-                        <option value="refrigeradora">Reparación Refrigeradora</option>
-                        <option value="lavadora">Reparación Lavadora</option>
-                        <option value="horno">Reparación Horno</option>
-                        <option value="television">Reparación Televisor</option>
-                        <option value="albañil">Servicios de Albañilería</option>
-                        <option value="electricista">Servicios Eléctricos</option>
-                        <option value="plomero">Servicios de Plomería</option>
+                        <option value="Refrigeradoras">Reparación Refrigeradora</option>
+                        <option value="Lavadoras">Reparación Lavadora</option>
+                        <option value="Hornos">Reparación Horno</option>
+                        <option value="Televisores">Reparación Televisor</option>
+                        <option value="Albañilería">Servicios de Albañilería</option>
+                        <option value="Electricidad">Servicios Eléctricos</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="location">Ubicación</label>
-                    <input type="text" id="location" placeholder="Ciudad o código postal">
+                    <input type="text" id="location" placeholder="Ciudad o código postal" autocomplete="off">
                 </div>
                 <button type="submit" class="btn btn-primary">Buscar Técnicos</button>
             </form>
+
+            <!-- Mensaje de error o advertencia -->
+            <div id="search-message" style="color:red; margin-top:10px;"></div>
+
+            <!-- Contenedor de resultados de búsqueda -->
+            <div id="search-results" class="mt-4" style="min-height:50px;"></div>
         </section>
+
         <h1 id="serv">Servicios</h1>
         <section class="service-categories">
-
+            <!-- Servicio: Refrigeradoras -->
             <div class="service-card">
                 <div class="service-img">
                     <img src="./imagenes/refri.jpg" alt="Imagen de refrigeradora" />
@@ -74,37 +78,42 @@ session_start();
                 <h3>Refrigeradoras</h3>
                 <p>Reparación y mantenimiento de refrigeradoras de todas las marcas</p>
             </div>
+            <!-- Servicio: Lavadoras -->
             <div class="service-card">
                 <div class="service-img">
-                <img src="./imagenes/lavadora.jpg" alt="Imagen de lavadora" />               
+                    <img src="./imagenes/lavadora.jpg" alt="Imagen de lavadora" />               
                 </div>
                 <h3>Lavadoras</h3>
                 <p>Servicio especializado en lavadoras y secadoras</p>
             </div>
+            <!-- Servicio: Hornos -->
             <div class="service-card">
                 <div class="service-img">
-                <img src="./imagenes/horno.jpg" alt="Imagen de lavadora" />               
+                    <img src="./imagenes/horno.jpg" alt="Imagen de horno" />               
                 </div>                
                 <h3>Hornos</h3>
                 <p>Reparación de hornos eléctricos y a gas</p>
             </div>
+            <!-- Servicio: Televisores -->
             <div class="service-card">
                 <div class="service-img">
-                <img src="./imagenes/tv.jpg" alt="Imagen de lavadora" />               
+                    <img src="./imagenes/tv.jpg" alt="Imagen de televisor" />               
                 </div>
                 <h3>Televisores</h3>
                 <p>Reparación de TV LED, LCD, OLED y Smart TV</p>
             </div>
+            <!-- Servicio: Albañilería -->
             <div class="service-card">
                 <div class="service-img">
-                <img src="./imagenes/construccion.jpg" alt="Imagen de lavadora" />               
+                    <img src="./imagenes/construccion.jpg" alt="Imagen de construcción" />               
                 </div>
                 <h3>Albañilería</h3>
                 <p>Servicios de construcción y remodelación</p>
             </div>
+            <!-- Servicio: Electricidad -->
             <div class="service-card">
                 <div class="service-img">
-                <img src="./imagenes/electricidad.jpg" alt="Imagen de lavadora" />               
+                    <img src="./imagenes/electricidad.jpg" alt="Imagen de electricidad" />               
                 </div>
                 <h3>Electricidad</h3>
                 <p>Instalaciones y reparaciones eléctricas</p>
@@ -173,8 +182,6 @@ session_start();
         </div>
     </footer>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
-
 </html>

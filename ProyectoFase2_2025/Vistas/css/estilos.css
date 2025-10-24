@@ -1,4 +1,5 @@
-* {
+* /* --- CSS Original --- */
+{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -333,3 +334,73 @@ footer {
     align-items: center;
   }
 }
+
+/* --- NUEVO: Historia de Usuario 2 --- */
+
+/* Contenedor de resultados de búsqueda */
+.search-results { /* Contenedor donde se mostrarán los técnicos encontrados */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 2rem; /* separación con el formulario */
+}
+
+/* Tarjeta de técnico encontrada */
+.search-results .tech-card { /* Tarjeta individual de técnico */
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-results .tech-card:hover { /* Hover sobre técnico */
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.search-results .tech-card h4 { /* Nombre técnico */
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #1f2937;
+}
+
+.search-results .tech-card p { /* Detalles técnicos */
+    font-size: 0.95rem;
+    color: #4b5563;
+    margin-bottom: 0.5rem;
+}
+
+.search-results .tech-card span { /* Especialidad / zona / tarifa */
+    font-size: 0.9rem;
+    color: #667eea;
+    display: block;
+    margin-bottom: 0.3rem;
+}
+/* Botones dentro de la tarjeta de técnico */
+.search-results .tech-card .btn {
+    display: inline-block;
+    margin: 0.5rem 0.3rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.search-results .tech-card .btn-primary {
+    background: linear-gradient(45deg, #3659f3, #764ba2);
+    color: white;
+}
+
+.search-results .tech-card .btn-secondary {
+    background-color: #667eea;
+    color: white;
+}
+
+.search-results .tech-card .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
