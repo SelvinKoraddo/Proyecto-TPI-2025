@@ -168,6 +168,7 @@ session_start();
                 <div class="footer-section">
                     <h4>Tecnologías</h4>
                     <p>HTML5 • CSS3 • JavaScript • Bootstrap • PHP • MySQL • API REST</p>
+                     <a href="../Vistas/loginAdmin.php" class="admin-link">Administrador</a>
                 </div>
             </div>
         </div>
