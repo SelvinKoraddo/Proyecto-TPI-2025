@@ -30,7 +30,7 @@ if (isset($_GET['logout'])) {
             <a href="?logout=true" class="btn btn-outline-light">Cerrar Sesión</a>
         </div>
     </nav>
-
+<main>
     <div class="container mt-5">
         <h2 class="text-center mb-4">Bienvenido, Administrador</h2>
 
@@ -76,7 +76,7 @@ if (isset($_GET['logout'])) {
             </div>
         </div>
     </div>
-
+</main>
     <footer class="text-center mt-5 p-3 bg-dark">
         <p class="mb-0">© 2025 TechFix | Administrador</p>
     </footer>
