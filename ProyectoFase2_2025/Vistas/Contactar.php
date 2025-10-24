@@ -18,22 +18,24 @@ $usuario_logueado = $_SESSION['id_usuario'] ?? null;
 <head>
     <meta charset="UTF-8">
     <title>Contactar Técnico</title>
-    <link rel="stylesheet" href="../Vistas/css/contactar.css">
+    <link rel="stylesheet" href="css/contactar.css">
 </head>
 <body>
-    <h2>Contactar Técnico</h2>
+    <div class="container">
+        <h2>Contactar Técnico</h2>
 
-    <?php if (!$usuario_logueado): ?>
-        <p>Debes iniciar sesión para enviar mensajes.</p>
-    <?php else: ?>
-        <form id="contactForm" data-tecnico="<?php echo $id_tecnico; ?>">
-            <label for="mensaje">Mensaje</label>
-            <textarea id="mensaje" required placeholder="Escribe tu mensaje aquí"></textarea>
-            <button type="submit">Enviar Mensaje</button>
-        </form>
-        <div id="respuesta" style="margin-top:10px;color:green;"></div>
-    <?php endif; ?>
+        <?php if (!$usuario_logueado): ?>
+            <p>Debes iniciar sesión para enviar mensajes.</p>
+        <?php else: ?>
+            <form id="contactForm" data-tecnico="<?php echo htmlspecialchars($id_tecnico); ?>">
+                <label for="mensaje">Mensaje:</label>
+                <textarea id="mensaje" name="mensaje" required placeholder="Escribe tu mensaje aquí..."></textarea>
+                <button type="submit" class="btnEnviarMensaje">Enviar Mensaje</button>
+            </form>
+            <div id="respuesta"></div>
+        <?php endif; ?>
+    </div>
 
-    <script src="../Vistas/script/contactar.js"></script>
+    <script src="script/contactar.js"></script>
 </body>
 </html>

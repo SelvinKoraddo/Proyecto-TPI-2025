@@ -45,10 +45,10 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Mostrar mensaje de carga
+    // Mensaje de carga temporal mientras se obtienen resultados
     resultsContainer.innerHTML = "<p style='text-align:center;'>Buscando técnicos...</p>";
 
-    // fetch al archivo PHP correcto (con 's')
+    // Petición al archivo PHP para obtener resultados
     fetch("../Vistas/Buscar-Tecnicos.php", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },

@@ -12,14 +12,14 @@ if (!$id_usuario) {
 
 // Validar POST
 $id_tecnico = $_POST['id_tecnico'] ?? null;
-$contenido = trim($_POST['contenido'] ?? '');
+$mensaje = trim($_POST['mensaje'] ?? '');
 
-if (!$id_tecnico || !$contenido) {
+if (!$id_tecnico || !$mensaje) {
     echo json_encode(["success" => false, "error" => "Datos incompletos."]);
     exit;
 }
 
-// Para pruebas: usar la primera solicitud disponible del usuario con ese técnico
+// Buscar solicitud entre usuario y técnico
 $stmt = $conexion->getConexion()->prepare("
     SELECT id_solicitud FROM solicitud 
     WHERE id_usuario = :id_usuario AND id_tecnico = :id_tecnico 
@@ -46,9 +46,11 @@ try {
     $insert->execute([
         ":id_solicitud" => $id_solicitud,
         ":id_usuario" => $id_usuario,
-        ":contenido" => $contenido
+        ":contenido" => $mensaje
     ]);
+
     echo json_encode(["success" => true]);
 } catch (PDOException $e) {
     echo json_encode(["success" => false, "error" => $e->getMessage()]);
 }
+?>

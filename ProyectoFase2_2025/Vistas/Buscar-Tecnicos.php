@@ -64,7 +64,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <span>Zona: {$tec['zona_trabajo']}</span>
                     <span>Tarifa: \${$tec['tarifa_hora']}/hora</span>
                     <div style='margin-top:10px; display:flex; gap:10px; justify-content:center;'>
-                        <a href='ReservarCita.php?id={$tec['id_tecnico']}' class='btn btn-primary'>Reservar Cita</a>
+                        <form action='ReservarCita.php' method='POST'>
+                            <input type='hidden' name='id_tecnico' value='{$tec['id_tecnico']}'>
+                            <button type='submit' class='btn btn-primary'>Reservar Cita</button>
+                        </form>
                         <a href='contactar.php?id_tecnico={$tec['id_tecnico']}' class='btn btn-secondary'>Contactar</a>
                     </div>
                   </div>";

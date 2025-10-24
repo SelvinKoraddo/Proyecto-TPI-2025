@@ -5,15 +5,15 @@
   box-sizing: border-box;
 }
 
-
 body {
   font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
-  background: linear-gradient(120deg, #2a63d3, #6a3cc9);
+  line-height: 1.6;
   color: #333;
+  background: linear-gradient(120deg, #2a63d3, #6a3cc9);
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  min-height: 100vh;
   padding-top: 60px;
 }
 
@@ -23,104 +23,108 @@ body {
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   width: 90%;
-  max-width: 600px;
+  max-width: 500px;
   padding: 2rem;
   text-align: center;
 }
 
 
-h2 {
+.container h1 {
   color: #2a63d3;
-  font-size: 2rem;
   margin-bottom: 1.5rem;
+  font-size: 2rem;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 
-form#contactForm {
+form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-form#contactForm label {
-  font-weight: 600;
-  color: #1f2937;
+label {
+  font-weight: bold;
+  color: #222;
   text-align: left;
 }
 
-form#contactForm textarea {
-  padding: 1rem;
+input[type="datetime-local"],
+textarea {
+  padding: 0.9rem;
   border: 2px solid #d1d5db;
   border-radius: 10px;
   font-size: 1rem;
-  resize: vertical;
-  min-height: 150px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
+  width: 100%;
 }
 
-form#contactForm textarea:focus {
+input[type="datetime-local"]:focus,
+textarea:focus {
   border-color: #2a63d3;
-  box-shadow: 0 0 5px rgba(42, 99, 211, 0.5);
   outline: none;
+  box-shadow: 0 0 5px rgba(42, 99, 211, 0.5);
 }
 
-form#contactForm textarea::placeholder {
+textarea::placeholder {
   color: #777;
   opacity: 1;
 }
 
 
-.btnEnviarMensaje {
+.btnEnviarCita {
   padding: 0.8rem;
   border: none;
   border-radius: 25px;
   cursor: pointer;
   font-weight: 600;
   font-size: 1rem;
+  transition: all 0.3s ease;
   background: linear-gradient(45deg, #2a63d3, #6a3cc9);
   color: white;
-  transition: all 0.3s ease;
 }
 
-.btnEnviarMensaje:hover {
+.btnEnviarCita:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
   background: linear-gradient(45deg, #365fff, #804be0);
 }
 
 
-#respuesta {
-  margin-top: 1rem;
-  font-weight: 500;
+.mensaje {
+  margin: 20px auto;
+  padding: 12px 18px;
   border-radius: 8px;
-  padding: 10px;
+  text-align: center;
+  width: 100%;
+  font-weight: bold;
 }
 
-#respuesta.success {
+.success {
   background-color: #28a745;
   color: white;
 }
 
-#respuesta.error {
+.error {
   background-color: #dc3545;
   color: white;
 }
 
 
-p {
-  color: #222;
-  font-size: 1.1rem;
-  margin-top: 1.5rem;
+.btnVolver {
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 1rem;
+  background: linear-gradient(45deg, #2a63d3, #6a3cc9);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
-
-@media (max-width: 768px) {
-  .container {
-    padding: 1.5rem;
-  }
-
-  h2 {
-    font-size: 1.8rem;
-  }
+.btnVolver:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(45deg, #365fff, #804be0);
 }
