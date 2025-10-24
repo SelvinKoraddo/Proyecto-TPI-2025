@@ -61,6 +61,7 @@ session_start();
                 <button type="submit" class="btn btn-primary">Buscar Técnicos</button>
             </form>
 
+           
             <!-- Mensaje de error o advertencia -->
             <div id="search-message" style="color:red; margin-top:10px;"></div>
 
@@ -70,7 +71,6 @@ session_start();
 
         <h1 id="serv">Servicios</h1>
         <section class="service-categories">
-            <!-- Servicio: Refrigeradoras -->
             <div class="service-card">
                 <div class="service-img">
                     <img src="./imagenes/refri.jpg" alt="Imagen de refrigeradora" />
@@ -78,7 +78,6 @@ session_start();
                 <h3>Refrigeradoras</h3>
                 <p>Reparación y mantenimiento de refrigeradoras de todas las marcas</p>
             </div>
-            <!-- Servicio: Lavadoras -->
             <div class="service-card">
                 <div class="service-img">
                     <img src="./imagenes/lavadora.jpg" alt="Imagen de lavadora" />               
@@ -86,7 +85,6 @@ session_start();
                 <h3>Lavadoras</h3>
                 <p>Servicio especializado en lavadoras y secadoras</p>
             </div>
-            <!-- Servicio: Hornos -->
             <div class="service-card">
                 <div class="service-img">
                     <img src="./imagenes/horno.jpg" alt="Imagen de horno" />               
@@ -94,7 +92,6 @@ session_start();
                 <h3>Hornos</h3>
                 <p>Reparación de hornos eléctricos y a gas</p>
             </div>
-            <!-- Servicio: Televisores -->
             <div class="service-card">
                 <div class="service-img">
                     <img src="./imagenes/tv.jpg" alt="Imagen de televisor" />               
@@ -102,7 +99,6 @@ session_start();
                 <h3>Televisores</h3>
                 <p>Reparación de TV LED, LCD, OLED y Smart TV</p>
             </div>
-            <!-- Servicio: Albañilería -->
             <div class="service-card">
                 <div class="service-img">
                     <img src="./imagenes/construccion.jpg" alt="Imagen de construcción" />               
@@ -110,7 +106,6 @@ session_start();
                 <h3>Albañilería</h3>
                 <p>Servicios de construcción y remodelación</p>
             </div>
-            <!-- Servicio: Electricidad -->
             <div class="service-card">
                 <div class="service-img">
                     <img src="./imagenes/electricidad.jpg" alt="Imagen de electricidad" />               
