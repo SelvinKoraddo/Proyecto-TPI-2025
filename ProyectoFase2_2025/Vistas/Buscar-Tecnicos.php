@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Convertimos a minúsculas y eliminamos acentos para búsqueda flexible
+    // Convertimos a minúsculas y eliminamos acentos para las buquedas
     function normalizar($str) {
         $str = mb_strtolower($str, 'UTF-8');
         $str = str_replace(

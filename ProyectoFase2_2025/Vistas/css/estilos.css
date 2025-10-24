@@ -1,4 +1,4 @@
-* /* --- CSS Original --- */
+*
 {
   margin: 0;
   padding: 0;
@@ -335,7 +335,7 @@ footer {
   }
 }
 
-/* --- NUEVO: Historia de Usuario 2 --- */
+
 
 /* Contenedor de resultados de búsqueda */
 .search-results { /* Contenedor donde se mostrarán los técnicos encontrados */
