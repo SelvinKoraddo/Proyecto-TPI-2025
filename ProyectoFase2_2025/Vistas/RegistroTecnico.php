@@ -110,22 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body style="background: #ffffff !important;">   
-    <header>
-        <nav class="container">
-            <div class="logo">
-                <i class="bi bi-wrench"> TechFix</i>
-            </div>
-            <ul class="nav-links">
-                <li><a href="../index.php#inic">Inicio</a></li>
-                <li><a href="../index.php#serv">Servicios</a></li>
-                <li><a href="../index.php#Cf">Cómo Funciona</a></li>
-            </ul>
-            <div class="auth-buttons">
-                <a href="../index.php#log" class="btn btn-outline">Iniciar Sesión</a>
-                <a href="../index.php#log" class="btn btn-primary">Registrarse</a>
-            </div>
-        </nav>
-    </header>
+    
 
     <main class="container my-5">
         <section class="hero text-center">
@@ -239,27 +224,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </section>
     </main>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>TechFix</h4>
-                    <p>Conectando técnicos profesionales con clientes que necesitan servicios de calidad.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Integrantes</h4>
-                    <a href="#">Selvin Obed</a><br>
-                    <a href="#">Ulises Bladimir</a><br>
-                    <a href="#">Isaak Palacios</a><br>
-                    <a href="#">Robert David</a>
-                </div>
-                <div class="footer-section">
-                    <h4>Tecnologías</h4>
-                    <p>HTML5 • CSS3 • JavaScript • Bootstrap • PHP • MySQL • API REST</p>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
