@@ -50,6 +50,7 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
             <ul class="nav-links">
                 <li><a href="#inic">Solicitudes Recibidas</a></li>
                 <li><a href="#Cf">Citas Programadas</a></li>
+                <li><a href="#">Mensajería</a></li>
                 <li><a href="#historial">Historial</a></li>
                 <li><a href="PerfilTecnico.php">Perfil</a></li>
                 <li> <h5>Bienvenid@: <?= htmlspecialchars($primerNombre) ?></h5> </li>

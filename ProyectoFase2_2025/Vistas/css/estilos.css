@@ -31,7 +31,7 @@ body {
 }
 .containerH ul li h5 {
   color: #06c5ff;
-  padding-left: 85px;
+  padding-left: 65px;
   padding-top: 10px;
 }
 #tperfect {
@@ -63,7 +63,7 @@ nav {
 .logo {
   font-size: 2rem;
   font-weight: bold;
-  color: #ffffff;
+  color: #06c5ff;
   padding-left: 15px;
 }
 
@@ -72,6 +72,7 @@ nav {
   gap: 2rem;
   list-style: none;
   font-size: 20px;
+  align-items: center;
 }
 
 .nav-links a {
