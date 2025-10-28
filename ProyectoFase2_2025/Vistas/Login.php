@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   header('Location: Home.php');
                   break;
               case 'tecnico':
-                  header('Location: PanelTecnico.php');
+                  header('Location: HomeTecnicos.php');
                   break;
               case 'admin':
                   header('Location: PanelAdmin.php');

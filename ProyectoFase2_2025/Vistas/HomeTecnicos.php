@@ -29,7 +29,7 @@ session_start();
                 <li><a href="#inic">Solicitudes Recibidas</a></li>
                 <li><a href="#Cf">Citas Programadas</a></li>
                 <li><a href="#historial">Historial</a></li>
-                <li><a href="#">Perfil</a></li>
+                <li><a href="PerfilTecnico.php">Perfil</a></li>
             </ul>
 
             <div class="auth-buttons">
@@ -42,7 +42,7 @@ session_start();
 
     <main class="container">
         <section class="hero">
-            <h1 id="inic">Servicios Técnicos Profesionales</h1>
+            <h1 id="inic">Bienvenidos, Técnicos </h1>
             <p>Conectamos técnicos especializados con clientes que necesitan reparaciones de electrodomésticos y
                 servicios de construcción</p>
         </section>     
