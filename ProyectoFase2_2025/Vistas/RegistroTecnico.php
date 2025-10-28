@@ -34,10 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'telefono' => $telefono,
                 'correo' => $correo
             ]);
-            $id_usuario = $db->lastInsertId();
-            
-            // No mostrar mensaje de conexión
-            ob_clean();
+            $id_usuario = $db->lastInsertId();   
 
             // Insertar en perfil_tecnico
             $stmt2 = $db->prepare("INSERT INTO perfil_tecnico (id_usuario, descripcion, tarifa_hora, zona_trabajo, estado, fecha_aprobado)
