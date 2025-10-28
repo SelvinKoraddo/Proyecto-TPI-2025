@@ -13,9 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $resultado = $resenaModelo->registrarResena($id_usuario, $id_tecnico, $id_solicitud, $calificacion, $comentario);
 
     if ($resultado) {
-        header("Location: ../Vistas/resena_tecnico.php?exito=1");
+        header("Location: ../Vistas/resenaTecnico.php?exito=1");
     } else {
-        header("Location: ../Vistas/resena_tecnico.php?error=1");
+        header("Location: ../Vistas/resenaTecnico.php?error=1");
     }
     exit;
 }
