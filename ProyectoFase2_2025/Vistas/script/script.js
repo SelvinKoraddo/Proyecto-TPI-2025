@@ -1,16 +1,13 @@
 // Funcionalidad básica del formulario
 document.querySelector(".search-form").addEventListener("submit", function (e) {
-  e.preventDefault();
   const serviceType = document.getElementById("service-type").value;
-  const location = document.getElementById("location").value;
 
-  if (!serviceType || !location) {
-    alert("Por favor, selecciona un tipo de servicio y ubicación");
+  if (!serviceType) {
+    e.preventDefault(); // Solo previene si no hay selección
+    alert("Por favor, selecciona un tipo de servicio");
     return;
   }
 
-  // Simular búsqueda
-  alert(`Buscando técnicos de ${serviceType} en ${location}...`);
 });
 
 // Efecto de hover en las tarjetas de servicio
@@ -24,7 +21,7 @@ document.querySelectorAll(".service-card").forEach((card) => {
   });
 });
 
-// Navegación suave
+// Navegación suave para anclas internas
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
     e.preventDefault();
