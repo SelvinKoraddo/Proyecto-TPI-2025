@@ -1,5 +1,27 @@
 <?php
 session_start();
+require_once '../Modelos/Conexion.php';
+
+// 🔐 Verificar sesión y rol
+if (!isset($_SESSION['Rol']) || $_SESSION['Rol'] !== 'tecnico') {
+    header('Location: Login.php');
+    exit;
+}
+
+$id_usuario = $_SESSION['Id'];
+$mensaje = '';
+
+$db = (new Conexion())->getConexion();
+
+//Obtener datos personales y técnicos del usuario
+$sql = "SELECT nombre_completo FROM usuarios 
+        WHERE id_usuario = :id_usuario";
+
+$stmt = $db->prepare($sql);
+$stmt->execute(['id_usuario' => $id_usuario]);
+$tecnico = $stmt->fetch(PDO::FETCH_ASSOC);
+$primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer nombre
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -30,6 +52,9 @@ session_start();
                 <li><a href="#Cf">Citas Programadas</a></li>
                 <li><a href="#historial">Historial</a></li>
                 <li><a href="PerfilTecnico.php">Perfil</a></li>
+                <li> <h5>Bienvenid@: <?= htmlspecialchars($primerNombre) ?></h5> </li>
+
+                
             </ul>
 
             <div class="auth-buttons">
