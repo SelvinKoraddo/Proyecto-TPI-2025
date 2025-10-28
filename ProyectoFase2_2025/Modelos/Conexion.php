@@ -14,12 +14,12 @@ class Conexion
         {
             $this->conBD=new PDO($cadenaConexion,$this->user,$this->pass);
             $this->conBD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "Conexion Exitosa!!";
+            
         }
         catch(Exception $e)
         {
             $this->conBD="Error de conexion";
-            echo "Error: ".$e->getMessage();
+            
         }
     }
 
