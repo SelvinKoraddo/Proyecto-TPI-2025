@@ -42,13 +42,13 @@ session_start();
     <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="./imagenes/construccion1.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
                 <img src="./imagenes/construccion2.jpg" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
                 <img src="./imagenes/construccion3.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="./imagenes/construccion1.jpg" class="d-block w-100" alt="...">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
