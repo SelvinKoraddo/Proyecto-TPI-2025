@@ -2,7 +2,7 @@
 session_start();
 require_once '../Modelos/Conexion.php';
 
-// 🔐 Verificar sesión y rol
+// Verificar sesión y rol
 if (!isset($_SESSION['Rol']) || $_SESSION['Rol'] !== 'cliente') {
     header('Location: Login.php');
     exit;
