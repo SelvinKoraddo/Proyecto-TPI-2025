@@ -14,7 +14,7 @@ class Conexion
         {
             $this->conBD=new PDO($cadenaConexion,$this->user,$this->pass);
             $this->conBD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "Conexion Exitosa!!";
+            //echo "Conexion Exitosa!!";
         }
         catch(Exception $e)
         {
