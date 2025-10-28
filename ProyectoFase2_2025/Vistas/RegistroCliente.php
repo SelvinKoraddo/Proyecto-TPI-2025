@@ -43,31 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="../Vistas/css/estilos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        body {
-            background: #ffffff !important;
-            background-color: #ffffff !important;
-        }
-        main {
-            background: #ffffff !important;
-        }
-        .hero {
-            background: #ffffff !important;
-        }
-        .hero h1 {
-            color: #2c3e50 !important;
-        }
-        .hero .lead {
-            color: #5a6c7d !important;
-        }
-        footer {
-            background-color: #2b2d42 !important;
-            background: #2b2d42 !important;
-        }
-    </style>
+    
 </head>
 
-<body style="background: #ffffff !important;">   
+<body>   
 
     <main class="container my-5">
         <section class="hero text-center">
