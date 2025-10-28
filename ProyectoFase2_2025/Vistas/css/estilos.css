@@ -26,6 +26,9 @@ body {
   margin: 0 auto;
   padding: 0 20px;
 }
+.containerH{
+padding: 0 15px 0 15px;
+}
 #tperfect{
   text-align: center;
   margin-bottom: 1em;
@@ -56,7 +59,7 @@ nav {
   font-size: 2rem;
   font-weight: bold;
   color: #ffffff;
-  
+  padding-left: 15px;
 }
 
 .nav-links {
@@ -103,6 +106,7 @@ nav {
   background-color: #ffffff;
   border: 2px solid #667eea;
   color: #000000;
+ 
 }
 .btn-outline:hover{
   background-color: #f0edf3;
