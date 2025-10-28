@@ -16,9 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $resultado = $tecnicoModelo->registrarTecnico($nombre, $correo, $contrasena, $telefono, $tarifa, $zona, $descripcion, $especialidades);
 
     if ($resultado) {
-        header("Location: ../Vistas/Registro_tecnico.php?exito=1");
+        header("Location: ../Vistas/RegistroTecnico.php?exito=1");
     } else {
-        header("Location: ../Vistas/Registro_tecnico.php?error=1");
+        header("Location: ../Vistas/RegistroTecnico.php?error=1");
     }
     exit;
 }
