@@ -149,7 +149,7 @@ session_start();
         </section>
 
 
-        <section class="cta-section"><!-- INICIO HISTORIAL -->
+        <section class="cta-section"><!-- INICIO BLOQUE PARA HISTORIAL -->
             <h2 id="historial">Historial Servicios</h2>
             <!-- Navegación con pestañas -->
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -260,7 +260,7 @@ session_start();
                 </div>
             </div>
             </div>
-        </section><!-- FIN HISTORIAL -->
+        </section><!-- FIN BLOQUE PARA HISTORIAL -->
     </main>
 
     <footer>
