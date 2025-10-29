@@ -104,10 +104,10 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
                     <label for="service-type">Tipo de Servicio</label>
                     <select id="service-type" name="especialidad">
                         <option value="">Selecciona un servicio</option>
-                        <option value="Refrigeradora">Reparación Refrigeradora</option>
-                        <option value="Lavadora">Reparación Lavadora</option>
-                        <option value="Horno">Reparación Horno</option>
-                        <option value="Televisor">Reparación Televisor</option>
+                        <option value="Refrigeradoras">Reparación Refrigeradora</option>
+                        <option value="Lavadoras">Reparación Lavadora</option>
+                        <option value="Hornos">Reparación Horno</option>
+                        <option value="Televisores">Reparación Televisor</option>
                         <option value="Albañilería">Servicios de Albañilería</option>
                         <option value="Electricidad">Servicios Eléctricos</option>
                     </select>
