@@ -12,9 +12,22 @@ class reservarCitaControlador {
         return $this->modelo->insertarCita($id_usuario, $id_tecnico, $fecha_inicio, $fecha_fin, $notas);
     }
 
-    // Listar citas por usuario
     public function listarCitasPorUsuario($id_usuario) {
         return $this->modelo->listarCitasPorUsuario($id_usuario);
     }
+
+    public function listarCitasPorTecnico($id_tecnico) {
+    return $this->modelo->listarCitasPorTecnico($id_tecnico);
+}
+
+
+    public function actualizarEstado($id_cita, $estado) {
+        return $this->modelo->actualizarEstadoCita($id_cita, $estado);
+    }
+
+    public function finalizarCita($id_cita, $horas, $tarifa) {
+    return $this->modelo->finalizarCita($id_cita, $horas, $tarifa);
+}
+
 }
 ?>

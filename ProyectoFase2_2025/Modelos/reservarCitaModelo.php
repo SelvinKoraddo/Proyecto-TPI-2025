@@ -73,5 +73,57 @@ class reservarCitaModelo {
         $stmt->execute([':id_usuario' => $id_usuario]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+        public function listarCitasPorTecnico($id_tecnico) {
+    $sql = "SELECT c.*, s.id_usuario, s.descripcion
+            FROM cita c
+            INNER JOIN solicitud s ON c.id_solicitud = s.id_solicitud
+            WHERE s.id_tecnico = :id_tecnico
+            ORDER BY c.fecha_inicio DESC";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([':id_tecnico' => $id_tecnico]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+    public function actualizarEstadoCita($id_cita, $estado) {
+        $sql = "UPDATE cita SET estado = :estado WHERE id_cita = :id_cita";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([':estado' => $estado, ':id_cita' => $id_cita]);
+    }
+
+    public function finalizarCita($id_cita, $horas_trabajadas, $tarifa_hora) {
+    try {
+        $monto = $horas_trabajadas * $tarifa_hora;
+
+        // Actualizar estado y notas de la cita
+        $sql = "UPDATE cita 
+                SET estado = 'finalizada',
+                    notas = CONCAT(IFNULL(notas,''), ' | Trabajo de ', :horas, ' horas.'),
+                    fecha_fin = NOW()
+                WHERE id_cita = :id_cita";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            ':horas' => $horas_trabajadas,
+            ':id_cita' => $id_cita
+        ]);
+
+        // Actualizar monto y estado en la solicitud correspondiente
+        $sql2 = "UPDATE solicitud 
+                 SET monto = :monto, estado = 'completada'
+                 WHERE id_solicitud = (SELECT id_solicitud FROM cita WHERE id_cita = :id_cita)";
+        $stmt2 = $this->db->prepare($sql2);
+        $stmt2->execute([
+            ':monto' => $monto,
+            ':id_cita' => $id_cita
+        ]);
+
+        return true;
+    } catch (Exception $e) {
+        error_log("Error al finalizar cita: " . $e->getMessage());
+        return false;
+    }
+}
+
+
 }
 ?>

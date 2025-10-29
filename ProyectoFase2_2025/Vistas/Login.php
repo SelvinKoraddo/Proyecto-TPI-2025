@@ -18,7 +18,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['Rol'] = $usuario['rol'];
         $_SESSION['Nombre'] = $usuario['nombre_completo'];
 
-        header('Location: Home.php');
+        // para redirigir según el rol
+          switch ($usuario['rol']) {
+              case 'cliente':
+                  header('Location: Home.php');
+                  break;
+              case 'tecnico':
+                  header('Location: HomeTecnicos.php');
+                  break;
+              case 'admin':
+                  header('Location: PanelAdmin.php');
+                  break;
+              default:
+                  header('Location: Home.php');
+                  break;
+          }
         exit;
     } else {
         $mensaje = 'Correo o contraseña incorrectos.';
