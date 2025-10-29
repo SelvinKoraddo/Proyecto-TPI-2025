@@ -131,6 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $rol === 'tecnico') {
                                     <th>Fecha Fin</th>
                                     <th>Estado</th>
                                     <th>Notas</th>
+                                    <th>Monto</th>
                                     <?php if ($rol === 'tecnico'): ?>
                                         <th>Acciones</th>
                                     <?php else: ?>
@@ -146,6 +147,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $rol === 'tecnico') {
                                         <td><?= htmlspecialchars($c['fecha_fin']) ?></td>
                                         <td><?= ucfirst(htmlspecialchars($c['estado'])) ?></td>
                                         <td><?= htmlspecialchars($c['notas']) ?></td>
+
+                                        
+                                        <td>
+                                            <?php
+                                            // Buscar monto si está disponible (desde tabla solicitud)
+                                            $stmtMonto = $db->prepare("SELECT monto FROM solicitud WHERE id_solicitud = ?");
+                                            $stmtMonto->execute([$c['id_solicitud'] ?? null]);
+                                            $monto = $stmtMonto->fetchColumn();
+
+                                            if ($c['estado'] === 'finalizada' && $monto !== null) {
+                                                echo "<span class='fw-bold text-success'>$" . number_format($monto, 2) . "</span>";
+                                            } else {
+                                                echo "<span class='text-muted'>—</span>";
+                                            }
+                                            ?>
+                                        </td>
 
                                         <?php if ($rol === 'tecnico'): ?>
                                             <td>
@@ -171,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $rol === 'tecnico') {
                                             </td>
                                         <?php else: ?>
                                             <td>
-                                                <?php if ($c['estado'] === 'finalizada'): ?>
+                                                <?php if ($c['estado'] === 'finalizada' && $monto > 0): ?>
                                                     <a href="Pago.php?id_cita=<?= $c['id_cita'] ?>"
                                                         class="btn btn-success btn-sm">Pagar</a>
                                                 <?php else: ?>
@@ -184,6 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $rol === 'tecnico') {
                             </tbody>
                         </table>
                     </div>
+
                 <?php endif; ?>
             </div>
             <div class="card-footer text-center">
