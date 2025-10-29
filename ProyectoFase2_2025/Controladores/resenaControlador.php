@@ -4,9 +4,9 @@ require_once("../Modelos/resenaModelo.php");
 $resenaModelo = new ResenaModelo();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id_usuario = 1; 
+    $id_usuario = 2; 
     $id_tecnico = $_POST['tecnico_id'];
-    $id_solicitud = 1;
+    $id_solicitud = 3;
     $calificacion = $_POST['calificacion'];
     $comentario = $_POST['comentario'];
 
