@@ -1,6 +1,6 @@
 
 <?php
-require_once '../Modelos/Pago.php';
+require_once '../Modelos/PagosModel.php';
 session_start();
 header('Content-Type: application/json');
 

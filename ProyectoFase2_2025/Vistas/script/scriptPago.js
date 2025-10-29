@@ -7,39 +7,50 @@ paypal.Buttons({
     layout: 'vertical',
   },
   createOrder: function (data, actions) {
-    // usa el monto real
     return actions.order.create({
       purchase_units: [{
-        amount: { value: PAGO_DATA.monto }
+        amount: {
+          value: PAGO_DATA.monto
+        }
       }]
     });
   },
   onApprove: function (data, actions) {
     return actions.order.capture().then(function (details) {
-      alert('Pago realizado por ' + details.payer.name.given_name + ' por $' + PAGO_DATA.monto);
+      console.log("Pago completado:", details);
 
-      // Enviar datos al backend
-      fetch('../Controladores/PagoController.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      // Llamar a tu backend para guardar el pago
+      fetch("../Controladores/pagoController.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          paypal_id_orden: details.id,
           id_solicitud: PAGO_DATA.id_solicitud,
-          id_usuario: PAGO_DATA.id_usuario,
           id_tecnico: PAGO_DATA.id_tecnico,
-          paypal_id_orden: data.orderID,
-          estado: details.status === 'COMPLETED' ? 'completed' : 'pending',
-          monto: PAGO_DATA.monto
+          monto: PAGO_DATA.monto,
+          estado: details.status
         })
       })
       .then(res => res.json())
-      .then(response => {
-        if (response.success) {
-          alert('Pago registrado correctamente en la base de datos');
-          window.location.href = "../Vistas/Home.php";
+      .then(result => {
+        console.log("Respuesta del servidor:", result);
+
+        if (result.success) {
+          alert("✅ Pago realizado con éxito. ¡Gracias!");
+          window.location.href = "Home.php"; // 🔁 Redirige al home después de pagar
         } else {
-          console.error('Error al registrar pago:', response.error);
+          alert("⚠️ Error al registrar el pago: " + (result.error || "desconocido"));
         }
+      })
+      .catch(err => {
+        console.error("Error al enviar datos al backend:", err);
+        alert("Ocurrió un error al procesar el pago.");
       });
     });
+  },
+
+  onError: function (err) {
+    console.error("Error de PayPal:", err);
+    alert("❌ Error con el pago. Intente de nuevo.");
   }
-}).render('#paypal-button-container');
+}).render("#paypal-button-container");
