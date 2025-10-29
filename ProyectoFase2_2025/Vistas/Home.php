@@ -56,15 +56,13 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
                 <li>
                     <h5>Bienvenid@: <?= htmlspecialchars($primerNombre) ?></h5>
                 </li>
-
             </ul>
-
             <div class="auth-buttons">
                 <a href="Login.php" class="btn btn-outline">Cerrar Sesión</a>
-
             </div>
         </nav>
     </header>
+    <!-- INICIO CARRUSEL BOOTSTRAP -->
     <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -87,7 +85,7 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
-    </div>
+    </div><!-- FIN CARRUSEL BOOTSTRAP -->
 
     <main class="container">
         <section class="hero">
@@ -196,7 +194,7 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
             </div>
         </section>
 
-        <section class="cta-section">
+        <section class="cta-section"><!-- INICIO BLOQUE PARA HISTORIAL -->
             <h2 id="historial">Historial Servicios</h2>
             <!-- Navegación con pestañas -->
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -213,18 +211,101 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
             <!-- Contenido de cada pestaña -->
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active p-3" id="citas" role="tabpanel" aria-labelledby="citas-tab">
-                    <h5>Historial de Citas</h5>
-                    <p>Aquí va la información de citas...</p>
+                    <?php
+                    require_once '../Modelos/Conexion.php';
+                    require_once '../Controladores/reservarCitaControlador.php';
+
+                    $id_usuario = $_SESSION['Id'];
+                    $db = (new Conexion())->getConexion();
+                    $controlador = new reservarCitaControlador();
+                    $citas = $controlador->listarCitasPorUsuario($id_usuario);
+                    ?>
+
+                    <?php if (empty($citas)): ?>
+                        <div class="alert alert-info text-center">No tienes citas registradas.</div>
+                    <?php else: ?>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover align-middle">
+                                <thead class="table-primary">
+                                    <tr>
+                                        <th>ID Cita</th>
+                                        <th>Fecha Inicio</th>
+                                        <th>Fecha Fin</th>
+                                        <th>Estado</th>
+                                        <th>Notas</th>
+                                        <th>Monto</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($citas as $c): ?>
+                                        <?php
+                                        $stmtMonto = $db->prepare("SELECT monto FROM solicitud WHERE id_solicitud = ?");
+                                        $stmtMonto->execute([$c['id_solicitud']]);
+                                        $monto = $stmtMonto->fetchColumn();
+                                        ?>
+                                        <tr>
+                                            <td><?= htmlspecialchars($c['id_cita']) ?></td>
+                                            <td><?= htmlspecialchars($c['fecha_inicio']) ?></td>
+                                            <td><?= htmlspecialchars($c['fecha_fin']) ?></td>
+                                            <td><?= ucfirst(htmlspecialchars($c['estado'])) ?></td>
+                                            <td><?= htmlspecialchars($c['notas']) ?></td>
+                                            <td><?= $monto ? "$" . number_format($monto, 2) : '—' ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php endif; ?>
+
                 </div>
 
                 <div class="tab-pane fade p-3" id="pagos" role="tabpanel" aria-labelledby="pagos-tab">
-                    <h5>Historial de Pagos</h5>
-                    <p>Aquí va la información de pagos...</p>
+                    <?php
+                    $stmt = $db->prepare("
+                          SELECT p.id_pago, p.monto, p.estado, p.fecha_pago, u.nombre_completo AS tecnico
+                          FROM pago p
+                          INNER JOIN perfil_tecnico t ON p.id_tecnico = t.id_tecnico
+                          INNER JOIN usuarios u ON t.id_usuario = u.id_usuario
+                          WHERE p.id_usuario = ?
+                          ORDER BY p.fecha_pago DESC
+                        ");
+                    $stmt->execute([$id_usuario]);
+                    $pagos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+
+                    <?php if (empty($pagos)): ?>
+                        <div class="alert alert-info text-center">Aún no has realizado pagos.</div>
+                    <?php else: ?>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover align-middle">
+                                <thead class="table-success">
+                                    <tr>
+                                        <th>ID Pago</th>
+                                        <th>Técnico</th>
+                                        <th>Monto</th>
+                                        <th>Estado</th>
+                                        <th>Fecha Pago</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($pagos as $p): ?>
+                                        <tr>
+                                            <td><?= htmlspecialchars($p['id_pago']) ?></td>
+                                            <td><?= htmlspecialchars($p['tecnico']) ?></td>
+                                            <td>$<?= number_format($p['monto'], 2) ?></td>
+                                            <td><?= ucfirst($p['estado']) ?></td>
+                                            <td><?= $p['fecha_pago'] ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php endif; ?>
+
                 </div>
             </div>
-
             </div>
-        </section>
+        </section>                   <!-- FIN BLOQUE PARA HISTORIAL -->
     </main>
 
     <footer>
