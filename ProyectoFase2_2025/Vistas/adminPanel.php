@@ -1,13 +1,16 @@
 <?php
 session_start();
-if (!isset($_SESSION['admin'])) {
-    header("Location: loginAdmin.php");
+
+// Verificar si hay sesión iniciada
+if (!isset($_SESSION['Rol']) || strtolower($_SESSION['Rol']) !== 'admin') {
+    header("Location: login.php"); // 🔹 Redirige al login correcto
     exit();
 }
 
+// Cierre de sesión
 if (isset($_GET['logout'])) {
     session_destroy();
-    header("Location: loginAdmin.php");
+    header("Location: login.php"); // 🔹 Cierre limpio y correcto
     exit();
 }
 ?>
@@ -24,62 +27,72 @@ if (isset($_GET['logout'])) {
 
 <body style="background: linear-gradient(180deg, #1f56a5, #9340c7); color: white;">
 
-    <nav class="navbar navbar-dark bg-dark p-3">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-dark bg-dark p-3 fixed-top">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1">⚙️ Panel de Administración - TechFix</span>
             <a href="?logout=true" class="btn btn-outline-light">Cerrar Sesión</a>
         </div>
     </nav>
-<main>
-    <div class="container mt-5">
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="container mt-5 pt-5">
         <h2 class="text-center mb-4">Bienvenido, Administrador</h2>
 
-        <div class="row g-4">
+        <div class="row g-4 justify-content-center">
+
+            <!-- Gestionar Solicitudes -->
             <div class="col-md-6 col-lg-4">
-                <div class="card text-center shadow p-4">
+                <div class="card text-center shadow p-4 h-100">
                     <h4>📋 Gestionar Solicitudes</h4>
                     <p>Revisa, aprueba o rechaza solicitudes de técnicos y clientes.</p>
-                    <a href="#" class="btn btn-primary">Entrar</a>
+                    <a href="gestionarSolicitudes.php" class="btn btn-primary">Entrar</a>
                 </div>
             </div>
 
+            <!-- Suspender Cuentas -->
             <div class="col-md-6 col-lg-4">
-                <div class="card text-center shadow p-4">
+                <div class="card text-center shadow p-4 h-100">
                     <h4>🚫 Suspender Cuentas</h4>
                     <p>Bloquea o reactiva cuentas con actividad irregular.</p>
-                    <a href="#" class="btn btn-primary">Entrar</a>
+                    <a href="suspenderCuentas.php" class="btn btn-primary">Entrar</a>
                 </div>
             </div>
 
+            <!-- Reportes y Estadísticas -->
             <div class="col-md-6 col-lg-4">
-                <div class="card text-center shadow p-4">
+                <div class="card text-center shadow p-4 h-100">
                     <h4>📊 Reportes y Estadísticas</h4>
                     <p>Consulta métricas sobre servicios y usuarios.</p>
-                    <a href="#" class="btn btn-primary">Entrar</a>
+                    <a href="reportesEstadisticas.php" class="btn btn-primary">Entrar</a>
                 </div>
             </div>
 
+            <!-- Gestionar Usuarios -->
             <div class="col-md-6 col-lg-4">
-                <div class="card text-center shadow p-4">
+                <div class="card text-center shadow p-4 h-100">
                     <h4>👥 Gestionar Usuarios</h4>
                     <p>Edita, elimina o asigna roles a los usuarios registrados.</p>
-                    <a href="#" class="btn btn-primary">Entrar</a>
+                    <a href="gestionarUsuarios.php" class="btn btn-primary">Entrar</a>
                 </div>
             </div>
 
+            <!-- Configuración General -->
             <div class="col-md-6 col-lg-4">
-                <div class="card text-center shadow p-4">
+                <div class="card text-center shadow p-4 h-100">
                     <h4>⚙️ Configuración General</h4>
                     <p>Administra parámetros del sistema y base de datos.</p>
-                    <a href="#" class="btn btn-primary">Entrar</a>
+                    <a href="configuracionGeneral.php" class="btn btn-primary">Entrar</a>
                 </div>
             </div>
         </div>
     </div>
-</main>
-    <footer class="text-center mt-5 p-3 bg-dark">
+
+    <!-- FOOTER FIJO -->
+    <footer class="text-center mt-5 p-3 bg-dark fixed-bottom">
         <p class="mb-0">© 2025 TechFix | Administrador</p>
     </footer>
 
 </body>
 </html>
+
