@@ -111,13 +111,13 @@ session_start();
                     $citas = [];
                     if ($id_tecnico) {
                         $stmt = $db->prepare("
-    SELECT c.*, s.id_usuario, u.nombre_completo AS cliente
-    FROM cita c
-    INNER JOIN solicitud s ON c.id_solicitud = s.id_solicitud
-    INNER JOIN usuarios u ON s.id_usuario = u.id_usuario
-    WHERE s.id_tecnico = ?
-    ORDER BY c.fecha_inicio DESC
-  ");
+                            SELECT c.*, s.id_usuario, u.nombre_completo AS cliente
+                            FROM cita c
+                            INNER JOIN solicitud s ON c.id_solicitud = s.id_solicitud
+                            INNER JOIN usuarios u ON s.id_usuario = u.id_usuario
+                            WHERE s.id_tecnico = ?
+                            ORDER BY c.fecha_inicio DESC
+                          ");
                         $stmt->execute([$id_tecnico]);
                         $citas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     }
