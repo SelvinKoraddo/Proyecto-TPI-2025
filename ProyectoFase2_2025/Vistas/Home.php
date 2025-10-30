@@ -163,7 +163,7 @@ session_start();
                 </li>
             </ul>
 
-            <!-- Contenido de cada pestaña -->
+            <!--Contenido de cada pestaña -->
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active p-3" id="citas" role="tabpanel" aria-labelledby="citas-tab">
                     <?php
