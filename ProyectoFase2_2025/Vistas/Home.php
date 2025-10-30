@@ -28,7 +28,8 @@ session_start();
             <ul class="nav-links">
                 <li><a href="#inic">Inicio</a></li>
                 <li><a href="#serv">Servicios</a></li>
-                <li><a href="ListaCitas.php">Mis solicitudes</a></li>                              
+                <li><a href="ListaCitas.php">Mis solicitudes</a></li>
+                <li><a href="#Cf">Mensajería</a></li>                         
                 <li><a href="#Cf">Cómo Funciona</a></li>
                 <li><a href="#historial">Historial</a></li>
                 <li><a href="#">Perfil</a></li>

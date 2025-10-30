@@ -26,8 +26,8 @@ session_start();
                 <i class="bi bi-wrench"> TechFix</i>
             </div>
             <ul class="nav-links">
-                <li><a href="#">Solicitudes Recibidas</a></li>
-                <li><a href="ListaCitas.php">Citas Programadas</a></li>
+                <li><a href="ListaCitas.php">Solicitudes Recibidas</a></li>
+                <li><a href="#">Mensajería</a></li>
                 <li><a href="#historial">Historial</a></li>
                 <li><a href="#">Perfil</a></li>
             </ul>
