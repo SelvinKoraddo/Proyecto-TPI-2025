@@ -53,8 +53,8 @@ if (isset($_GET['logout'])) {
             <!-- Suspender Cuentas -->
             <div class="col-md-6 col-lg-4">
                 <div class="card text-center shadow p-4 h-100">
-                    <h4>🚫 Suspender Cuentas</h4>
-                    <p>Bloquea o reactiva cuentas con actividad irregular.</p>
+                    <h4>🚫Cuentas Tecnicos</h4>
+                    <p>Aprueba o rechaza solicitudes de ingreso de los tecnicos.</p>
                     <a href="suspenderCuentas.php" class="btn btn-primary">Entrar</a>
                 </div>
             </div>

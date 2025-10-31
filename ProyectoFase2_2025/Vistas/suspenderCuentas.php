@@ -2,132 +2,163 @@
 session_start();
 require_once '../Modelos/Conexion.php';
 
-// --- Verificar sesión de administrador correctamente ---
-if (!isset($_SESSION['Rol']) || strtolower($_SESSION['Rol']) !== 'admin') {
-    header("Location: login.php"); 
+// Solo el admin puede entrar
+if (!isset($_SESSION['Rol']) || $_SESSION['Rol'] !== 'admin') {
+    header("Location: Login.php");
     exit();
 }
 
-// --- Conexión a la base de datos ---
 $db = (new Conexion())->getConexion();
 
-// --- Suspender o reactivar usuario ---
-if (isset($_GET['accion']) && isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $accion = $_GET['accion'];
-
-    if ($accion === 'suspender') {
-        $stmt = $db->prepare("UPDATE usuarios SET estado = 'suspendido' WHERE id_usuario = ?");
-    } elseif ($accion === 'reactivar') {
-        $stmt = $db->prepare("UPDATE usuarios SET estado = 'activo' WHERE id_usuario = ?");
-    }
-    $stmt->execute([$id]);
-    header("Location: suspenderCuentas.php");
-    exit();
-}
-
-// --- Obtener lista de usuarios ---
-$stmt = $db->query("SELECT id_usuario, nombre_completo, correo, rol, estado, fecha_creado FROM usuarios ORDER BY fecha_creado DESC");
-$usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Obtener todos los técnicos
+$query = $db->prepare("
+    SELECT pt.id_tecnico, 
+           u.nombre_completo, 
+           u.correo, 
+           u.telefono, 
+           pt.descripcion, 
+           pt.zona_trabajo, 
+           pt.tarifa_hora, 
+           pt.estado
+    FROM perfil_tecnico pt
+    INNER JOIN usuarios u ON pt.id_usuario = u.id_usuario
+    ORDER BY FIELD(pt.estado, 'pendiente','aprobado','rechazado')
+");
+$query->execute();
+$tecnicos = $query->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suspender Cuentas | TechFix</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <meta charset="UTF-8">
+  <title>Suspender Cuentas | TechFix</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    .estado-badge { padding: 5px 10px; border-radius: 8px; color: white; font-weight: 500; }
+    .pendiente { background-color: #ffc107; }
+    .aprobado { background-color: #28a745; }
+    .rechazado { background-color: #dc3545; }
+  </style>
 </head>
 
-<body style="background: linear-gradient(180deg,#1f56a5,#9340c7); color:white;">
-    <nav class="navbar navbar-dark bg-dark p-3 fixed-top">
-        <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">🚫 Suspender / Reactivar Cuentas</span>
-            <a href="adminPanel.php" class="btn btn-outline-light">⬅ Volver al Panel</a>
-        </div>
-    </nav>
+<body style="background: linear-gradient(180deg, #1f56a5, #9340c7); color: white;">
+<nav class="navbar navbar-dark bg-dark p-3">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1">🚫 Gestionar Cuentas - TechFix</span>
+    <a href="adminPanel.php" class="btn btn-outline-light">⬅ Volver al Panel</a>
+  </div>
+</nav>
 
-    <div class="container mt-5 pt-5">
-        <h2 class="text-center mb-4">Gestión de Cuentas de Usuarios</h2>
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Gestión de Técnicos</h2>
 
-        <div class="table-responsive">
-            <table class="table table-dark table-striped align-middle text-center shadow">
-                <thead class="table-primary text-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Correo</th>
-                        <th>Rol</th>
-                        <th>Estado</th>
-                        <th>Fecha Creado</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (count($usuarios) > 0): ?>
-                        <?php foreach ($usuarios as $u): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($u['id_usuario']) ?></td>
-                                <td><?= htmlspecialchars($u['nombre_completo']) ?></td>
-                                <td><?= htmlspecialchars($u['correo']) ?></td>
-                                <td><?= htmlspecialchars($u['rol']) ?></td>
-                                <td>
-                                    <?php if ($u['estado'] === 'activo'): ?>
-                                        <span class="badge bg-success">Activo</span>
-                                    <?php elseif ($u['estado'] === 'suspendido'): ?>
-                                        <span class="badge bg-danger">Suspendido</span>
-                                    <?php else: ?>
-                                        <span class="badge bg-secondary">Desconocido</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td><?= htmlspecialchars($u['fecha_creado']) ?></td>
-                                <td>
-                                    <?php if ($u['estado'] === 'activo'): ?>
-                                        <a href="?accion=suspender&id=<?= $u['id_usuario'] ?>" class="btn btn-danger btn-sm">Suspender</a>
-                                    <?php else: ?>
-                                        <a href="?accion=reactivar&id=<?= $u['id_usuario'] ?>" class="btn btn-success btn-sm">Reactivar</a>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <tr><td colspan="7">No hay usuarios registrados.</td></tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
+  <!-- 🔍 Buscador -->
+  <div class="input-group mb-4">
+    <span class="input-group-text bg-dark text-white">🔍 Buscar</span>
+    <input type="text" id="buscador" class="form-control" placeholder="Buscar técnico por nombre...">
+  </div>
 
-    <footer class="text-center mt-5 p-3 bg-dark fixed-bottom">
-        <p class="mb-0">© 2025 TechFix | Administrador</p>
-    </footer>
+  <!-- 🟡 Pendientes -->
+  <div class="card shadow bg-light text-dark p-3 mb-4">
+    <h4 class="text-center text-warning mb-3">Solicitudes Pendientes</h4>
+    <div id="pendientes"></div>
+  </div>
 
-    <script>
-    // Confirmación antes de suspender/reactivar
-    const links = document.querySelectorAll('a.btn-danger, a.btn-success');
-    links.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const url = this.href;
-            const accion = this.classList.contains('btn-danger') ? 'suspender' : 'reactivar';
-            Swal.fire({
-                title: `¿Seguro que deseas ${accion} esta cuenta?`,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, continuar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = url;
-                }
-            });
-        });
-    });
-    </script>
+  <!-- 🟢 Aprobados y Rechazados -->
+  <div class="card shadow bg-light text-dark p-3 mb-4">
+    <h4 class="text-center text-success mb-3">Técnicos Aprobados / Rechazados</h4>
+    <div id="activos"></div>
+  </div>
+</div>
 
+<footer class="text-center mt-5 p-3 bg-dark text-white">
+  © 2025 TechFix | Administrador
+</footer>
+
+<script>
+const tecnicos = <?php echo json_encode($tecnicos); ?>;
+
+// --- Renderizado ---
+function renderizar() {
+  const pendientes = document.getElementById('pendientes');
+  const activos = document.getElementById('activos');
+  pendientes.innerHTML = ''; 
+  activos.innerHTML = '';
+
+  const filtro = document.getElementById('buscador').value.toLowerCase();
+
+  tecnicos.forEach(t => {
+    if (!t.nombre_completo.toLowerCase().includes(filtro)) return;
+
+    const fila = document.createElement('div');
+    fila.className = 'd-flex justify-content-between align-items-center border p-2 rounded mb-2';
+    fila.innerHTML = `
+      <div>
+        <strong>${t.nombre_completo}</strong><br>
+        <small>${t.correo} | ${t.telefono} | ${t.zona_trabajo}</small>
+      </div>
+      <div>
+        <span class="estado-badge ${t.estado}">${t.estado.toUpperCase()}</span>
+      </div>
+      <div>${botonesPorEstado(t)}</div>
+    `;
+
+    if (t.estado === 'pendiente') pendientes.appendChild(fila);
+    else activos.appendChild(fila);
+  });
+}
+
+// --- Botones dinámicos según estado ---
+function botonesPorEstado(t) {
+  switch (t.estado) {
+    case 'pendiente':
+      return `
+        <button class="btn btn-success btn-sm me-1" onclick="actualizarEstado(${t.id_tecnico}, 'aprobado')">✅ Aprobar</button>
+        <button class="btn btn-danger btn-sm" onclick="actualizarEstado(${t.id_tecnico}, 'rechazado')">❌ Rechazar</button>
+      `;
+    case 'aprobado':
+      return `<button class="btn btn-warning btn-sm" onclick="actualizarEstado(${t.id_tecnico}, 'rechazado')">🚫 Desactivar</button>`;
+    case 'rechazado':
+      return `<button class="btn btn-primary btn-sm" onclick="actualizarEstado(${t.id_tecnico}, 'aprobado')">🔄 Reactivar</button>`;
+  }
+}
+
+// --- Actualizar estado en tiempo real ---
+function actualizarEstado(id, nuevoEstado) {
+  Swal.fire({
+    title: '¿Confirmar acción?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, confirmar',
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: nuevoEstado === 'rechazado' ? '#d33' : '#28a745'
+  }).then(result => {
+    if (result.isConfirmed) {
+      fetch('../Modelos/gestionarTecnicos.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'accion=' + nuevoEstado + '&id=' + id
+      })
+      .then(res => res.text())
+      .then(() => {
+        const tecnico = tecnicos.find(t => t.id_tecnico == id);
+        tecnico.estado = nuevoEstado;
+        renderizar(); // Reorganiza en tiempo real
+        Swal.fire('Hecho', 'El estado fue actualizado correctamente.', 'success');
+      });
+    }
+  });
+}
+
+// --- Buscador dinámico ---
+document.getElementById('buscador').addEventListener('input', renderizar);
+
+// --- Render inicial ---
+renderizar();
+</script>
 </body>
 </html>
+
+
