@@ -45,7 +45,7 @@ if (isset($_GET['logout'])) {
             <div class="col-md-6 col-lg-4">
                 <div class="card text-center shadow p-4 h-100">
                     <h4>📋 Gestionar Solicitudes</h4>
-                    <p>Revisa, aprueba o rechaza solicitudes de técnicos y clientes.</p>
+                    <p>Revisa, aprueba o rechaza solicitudes de cientes a tecnicos.</p>
                     <a href="gestionarSolicitudes.php" class="btn btn-primary">Entrar</a>
                 </div>
             </div>

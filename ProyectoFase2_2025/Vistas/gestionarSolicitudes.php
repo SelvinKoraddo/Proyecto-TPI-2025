@@ -11,10 +11,22 @@ if (!isset($_SESSION['Rol']) || $_SESSION['Rol'] !== 'admin') {
 // Conexión
 $db = (new Conexion())->getConexion();
 
-// Obtener solicitudes pendientes
-$stmt = $db->prepare("SELECT id_usuario, nombre_completo, correo, telefono, rol, fecha_creado 
-                      FROM usuarios 
-                      WHERE estado = 'pendiente'");
+// 🔹 Obtener todas las solicitudes de servicios registradas
+$stmt = $db->prepare("
+    SELECT s.id_solicitud, 
+           u.nombre_completo AS cliente, 
+           t.nombre_completo AS tecnico,
+           s.descripcion,
+           s.estado,
+           s.fecha_programacion,
+           s.direccion_servicio,
+           s.monto,
+           s.fecha_creado
+    FROM solicitud s
+    LEFT JOIN usuarios u ON s.id_usuario = u.id_usuario
+    LEFT JOIN usuarios t ON s.id_tecnico = t.id_usuario
+    ORDER BY s.fecha_creado DESC
+");
 $stmt->execute();
 $solicitudes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -36,37 +48,50 @@ $solicitudes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </nav>
 
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Solicitudes Pendientes</h2>
+    <h2 class="text-center mb-4">Solicitudes de Servicios</h2>
 
     <div class="card shadow bg-light text-dark p-4">
         <?php if (empty($solicitudes)): ?>
-            <p class="text-center">No hay solicitudes pendientes por revisar.</p>
+            <p class="text-center">No hay solicitudes registradas actualmente.</p>
         <?php else: ?>
             <div class="table-responsive">
                 <table class="table table-striped table-hover align-middle">
                     <thead class="table-dark">
                         <tr>
                             <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Correo</th>
-                            <th>Teléfono</th>
-                            <th>Rol</th>
-                            <th>Fecha de Solicitud</th>
+                            <th>Cliente</th>
+                            <th>Técnico</th>
+                            <th>Descripción</th>
+                            <th>Estado</th>
+                            <th>Fecha Programación</th>
+                            <th>Monto</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($solicitudes as $fila): ?>
-                        <tr id="fila-<?= $fila['id_usuario'] ?>">
-                            <td><?= $fila['id_usuario'] ?></td>
-                            <td><?= htmlspecialchars($fila['nombre_completo']) ?></td>
-                            <td><?= htmlspecialchars($fila['correo']) ?></td>
-                            <td><?= htmlspecialchars($fila['telefono']) ?></td>
-                            <td><?= htmlspecialchars($fila['rol']) ?></td>
-                            <td><?= $fila['fecha_creado'] ?></td>
+                        <tr id="fila-<?= $fila['id_solicitud'] ?>">
+                            <td><?= $fila['id_solicitud'] ?></td>
+                            <td><?= htmlspecialchars($fila['cliente'] ?? 'N/A') ?></td>
+                            <td><?= htmlspecialchars($fila['tecnico'] ?? 'N/A') ?></td>
+                            <td><?= htmlspecialchars($fila['descripcion']) ?></td>
                             <td>
-                                <button class="btn btn-success btn-sm" onclick="aprobarSolicitud(<?= $fila['id_usuario'] ?>)">✅ Aprobar</button>
-                                <button class="btn btn-danger btn-sm" onclick="rechazarSolicitud(<?= $fila['id_usuario'] ?>)">❌ Rechazar</button>
+                                <span class="badge bg-<?= 
+                                    $fila['estado'] === 'pendiente' ? 'warning' : 
+                                    ($fila['estado'] === 'aprobado' ? 'success' : 'secondary') 
+                                ?>">
+                                    <?= ucfirst($fila['estado']) ?>
+                                </span>
+                            </td>
+                            <td><?= $fila['fecha_programacion'] ?: '—' ?></td>
+                            <td>$<?= number_format($fila['monto'] ?? 0, 2) ?></td>
+                            <td>
+                                <?php if ($fila['estado'] === 'pendiente'): ?>
+                                    <button class="btn btn-success btn-sm" onclick="actualizarEstado(<?= $fila['id_solicitud'] ?>, 'aprobado')">✅ Aprobar</button>
+                                    <button class="btn btn-danger btn-sm" onclick="actualizarEstado(<?= $fila['id_solicitud'] ?>, 'rechazado')">❌ Rechazar</button>
+                                <?php else: ?>
+                                    <button class="btn btn-secondary btn-sm" disabled>Sin acción</button>
+                                <?php endif; ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -82,51 +107,29 @@ $solicitudes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </footer>
 
 <script>
-function aprobarSolicitud(id) {
+function actualizarEstado(id, nuevoEstado) {
+    let texto = (nuevoEstado === 'aprobado')
+        ? '¿Deseas aprobar esta solicitud de servicio?'
+        : '¿Deseas rechazar esta solicitud?';
+
     Swal.fire({
-        title: '¿Aprobar solicitud?',
-        text: "El usuario pasará a estar activo.",
+        title: texto,
         icon: 'question',
         showCancelButton: true,
-        confirmButtonText: 'Sí, aprobar',
+        confirmButtonText: 'Confirmar',
         cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#28a745'
+        confirmButtonColor: (nuevoEstado === 'aprobado') ? '#28a745' : '#d33'
     }).then((result) => {
         if (result.isConfirmed) {
             fetch('../Modelos/gestionarSolicitudes.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'accion=aprobar&id=' + id
+                body: 'accion=' + nuevoEstado + '&id=' + id
             })
             .then(res => res.text())
             .then(data => {
                 document.getElementById('fila-' + id).remove();
-                Swal.fire('Aprobada', 'La solicitud fue aprobada correctamente.', 'success');
-            });
-        }
-    });
-}
-
-function rechazarSolicitud(id) {
-    Swal.fire({
-        title: '¿Rechazar solicitud?',
-        text: "El usuario será eliminado del sistema.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Sí, rechazar',
-        cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#d33'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            fetch('../Modelos/gestionarSolicitudes.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'accion=rechazar&id=' + id
-            })
-            .then(res => res.text())
-            .then(data => {
-                document.getElementById('fila-' + id).remove();
-                Swal.fire('Rechazada', 'La solicitud fue rechazada y eliminada.', 'info');
+                Swal.fire('Hecho', 'La solicitud fue ' + nuevoEstado + ' correctamente.', 'success');
             });
         }
     });
@@ -134,3 +137,4 @@ function rechazarSolicitud(id) {
 </script>
 </body>
 </html>
+
