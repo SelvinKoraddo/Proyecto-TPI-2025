@@ -111,9 +111,6 @@ if ($id_tecnico) {
         <div class="card shadow-sm">
             <div class="card-header text-white d-flex justify-content-between align-items-center" style="background-color: #6a11cb;">
                 <h4 class="mb-0"><i class="bi bi-star-fill me-2"></i>Opiniones de Clientes</h4>
-                <a href="ResenaTecnico.php?id_tecnico=<?= $id_tecnico ?>" class="btn btn-light btn-sm">
-                    <i class="bi bi-pencil-square me-2"></i>Dejar una reseña
-                </a>
             </div>
             <div class="card-body p-3" style="max-height: 600px; overflow-y: auto;">
                 <?php if (empty($resenas)): ?>

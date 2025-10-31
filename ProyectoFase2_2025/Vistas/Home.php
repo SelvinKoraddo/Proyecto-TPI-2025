@@ -264,7 +264,7 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
                 <div class="tab-pane fade p-3" id="pagos" role="tabpanel" aria-labelledby="pagos-tab">
                     <?php
                     $stmt = $db->prepare("
-                          SELECT p.id_pago, p.monto, p.estado, p.fecha_pago, u.nombre_completo AS tecnico
+                          SELECT p.id_pago, p.monto, p.estado, p.fecha_pago, u.nombre_completo AS tecnico, p.id_solicitud, p.id_tecnico
                           FROM pago p
                           INNER JOIN perfil_tecnico t ON p.id_tecnico = t.id_tecnico
                           INNER JOIN usuarios u ON t.id_usuario = u.id_usuario
@@ -287,6 +287,7 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
                                         <th>Monto</th>
                                         <th>Estado</th>
                                         <th>Fecha Pago</th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -297,6 +298,15 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
                                             <td>$<?= number_format($p['monto'], 2) ?></td>
                                             <td><?= ucfirst($p['estado']) ?></td>
                                             <td><?= $p['fecha_pago'] ?></td>
+                                            <td>
+                                            <?php if (strtolower($p['estado']) === 'completed'): ?>
+                                                <a href="resenaTecnico.php?id_tecnico=<?= $p['id_tecnico'] ?>&id_solicitud=<?= $p['id_solicitud'] ?>"
+                                                class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-star-fill"></i> Dejar reseña
+                                            </a>
+                                            <?php else: ?>
+                                                <span class="text-muted">Pago pendiente</span>
+                                                <?php endif; ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>

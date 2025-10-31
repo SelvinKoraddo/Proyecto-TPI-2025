@@ -59,7 +59,7 @@ if ($id_tecnico) {
     <?php if (isset($_GET['exito'])): ?>
     <div class="alert alert-success text-center mx-3 mt-3">Reseña registrada correctamente.</div>
     <?php elseif (isset($_GET['error'])): ?>
-    <div class="alert alert-danger text-center mx-3 mt-3">Ocurrió un error al registrar la reseña.</div>
+    <div class="alert alert-danger text-center mx-3 mt-3">Ocurrió un error al registrar la reseña o la reseña ya fue creada.</div>
     <?php endif; ?>
 
     <main class="container my-5">
@@ -83,6 +83,8 @@ if ($id_tecnico) {
                                 <?php endforeach; ?>
                             </select>
                     </div>
+
+                    <input type="hidden" name="id_solicitud" value="<?= htmlspecialchars($_GET['id_solicitud'] ?? '') ?>">
 
                     <div class="mb-4 text-center">
                         <label class="form-label d-block mb-3">Calificación</label>
@@ -124,9 +126,6 @@ if ($id_tecnico) {
         <div class="card shadow-sm">
             <div class="card-header text-white d-flex justify-content-between align-items-center" style="background-color: #6a11cb;">
                 <h4 class="mb-0"><i class="bi bi-star-fill me-2"></i>Opiniones de Clientes</h4>
-                <a href="ResenaTecnico.php?id_tecnico=<?= $id_tecnico ?>" class="btn btn-light btn-sm">
-                    <i class="bi bi-pencil-square me-2"></i>Dejar una reseña
-                </a>
             </div>
             <div class="card-body p-3" style="max-height: 600px; overflow-y: auto;">
                 <?php if (empty($resenas)): ?>
@@ -163,9 +162,9 @@ if ($id_tecnico) {
             </div>
         </div>
     </section>
-<button class="btn btn-outline-secondary" onclick="history.back()">
-  <i class="bi bi-arrow-left"></i> Volver atrás
-</button>
+    <a href="Home.php" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Regresar
+    </a>
 
 <?php endif; ?>
 
