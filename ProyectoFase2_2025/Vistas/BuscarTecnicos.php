@@ -93,7 +93,7 @@ if (!empty($especialidad)) {
 </head>
 <body>
     <div class="container">
-        <h2>Técnicos para: <?= htmlspecialchars($especialidad) ?></h2>
+        <h2>Técnicos disponibles para: <?= htmlspecialchars($especialidad) ?></h2>
 
         <?php if (!empty($tecnicos)): ?>
             <div class="row justify-content-center">

@@ -120,7 +120,7 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
         <h1 id="serv">Servicios</h1>
         <section class="service-categories">
 
-            <div class="service-card" onclick="window.location.href='BuscarTecnicos.php?especialidad=Refrigeradora'">
+            <div class="service-card" onclick="window.location.href='BuscarTecnicos.php?especialidad=Refrigeradoras'">
                 <div class="service-img">
                     <img src="./imagenes/refri.jpg" alt="Imagen de refrigeradora" />
                 </div>
