@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'telefono' => $telefono,
                 'correo' => $correo
             ]);
-            $id_usuario = $db->lastInsertId();   
+            $id_usuario = $db->lastInsertId();
 
             $stmt2 = $db->prepare("INSERT INTO perfil_tecnico (id_usuario, descripcion, tarifa_hora, zona_trabajo, estado, fecha_aprobado)
                                    VALUES (:id_usuario, :descripcion, :tarifa, :zona, 'pendiente', NULL)");
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $stmt3 = $db->prepare("INSERT INTO tecnico_especialidad (id_tecnico, id_especialidad)
                                    VALUES (:id_tecnico, :id_especialidad)");
-            
+
             foreach ($especialidades as $id_especialidad) {
                 $stmt3->execute([
                     'id_tecnico' => $id_tecnico,
@@ -59,19 +59,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $db->commit();
             $mensaje = "Registro exitoso. Tu perfil será revisado por un administrador.";
             $tipoMensaje = "success";
-            
+
             $_POST = [];
-            
-        } catch (Exception $e) {
+
+        } catch (PDOException $e) {
             $db->rollBack();
-            $mensaje = "Error al registrar: " . $e->getMessage();
-            $tipoMensaje = "danger";
+            if ($e->getCode() == 23000) { // Código SQLSTATE para violación de restricción
+                $mensaje = "El correo ingresado ya está registrado. Por favor usa otro.";
+                $tipoMensaje = "warning";
+            } else {
+                $mensaje = "Error al registrar: " . $e->getMessage();
+                $tipoMensaje = "danger";
+            }
         }
     }
 }
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,11 +86,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="../Vistas/css/estilos.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">      
 </head>
 
-<body>   
-    
+<body>
+
     <main class="container my-5">
         <section class="hero text-center">
             <h1>Registro de Técnicos</h1>
@@ -92,9 +98,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </section>
 
         <?php if ($mensaje): ?>
-        <div class="alert alert-<?= $tipoMensaje ?> text-center mx-auto" style="max-width: 600px;">
-            <?= htmlspecialchars($mensaje) ?>
-        </div>
+            <div class="alert alert-<?= $tipoMensaje ?> text-center mx-auto" style="max-width: 600px;">
+                <?= htmlspecialchars($mensaje) ?>
+            </div>
         <?php endif; ?>
 
         <section class="register-section d-flex justify-content-center align-items-center mt-4">
@@ -102,31 +108,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <form method="POST">
                     <div class="mb-3">
                         <label class="form-label">Nombre Completo</label>
-                        <input type="text" name="nombre" class="form-control" 
-                               value="<?= htmlspecialchars($_POST['nombre'] ?? '') ?>" required>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label class="form-label">Correo Electrónico</label>
-                        <input type="email" name="correo" class="form-control" 
-                               value="<?= htmlspecialchars($_POST['correo'] ?? '') ?>" required>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label class="form-label">Teléfono</label>
-                        <input type="text" name="telefono" class="form-control" 
-                               value="<?= htmlspecialchars($_POST['telefono'] ?? '') ?>" required>
+                        <input type="text" name="nombre" class="form-control"
+                            value="<?= htmlspecialchars($_POST['nombre'] ?? '') ?>" required>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Contraseña</label>        
+                        <label class="form-label">Correo Electrónico</label>
+                        <input type="email" name="correo" class="form-control"
+                            value="<?= htmlspecialchars($_POST['correo'] ?? '') ?>" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Teléfono</label>
+                        <input type="text" name="telefono" class="form-control"
+                            value="<?= htmlspecialchars($_POST['telefono'] ?? '') ?>" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="contrasena" class="form-label">Contraseña</label>
                         <input type="password" name="contrasena" class="form-control" required>
                         <small class="text-muted">Mínimo 6 caracteres</small>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Descripción</label>
-                        <textarea name="descripcion" class="form-control" rows="3" required><?= htmlspecialchars($_POST['descripcion'] ?? '') ?></textarea>
+                        <textarea name="descripcion" class="form-control" rows="3"
+                            required><?= htmlspecialchars($_POST['descripcion'] ?? '') ?></textarea>
                         <small class="text-muted">Cuéntanos sobre tu experiencia y habilidades</small>
                     </div>
 
@@ -160,20 +167,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <div class="mb-3">
                         <label class="form-label">Tarifa por hora ($)</label>
-                        <input type="number" name="tarifa" class="form-control" step="0.01" min="0" 
-                               value="<?= htmlspecialchars($_POST['tarifa'] ?? '') ?>" required>    
+                        <input type="number" name="tarifa" class="form-control" step="0.01" min="0"
+                            value="<?= htmlspecialchars($_POST['tarifa'] ?? '') ?>" required>
                     </div>
-        
-                    <div class="mb-3">        
-                        <label class="form-label">Zona de trabajo</label>        
+
+                    <div class="mb-3">
+                        <label class="form-label">Zona de trabajo</label>
                         <select name="zona_trabajo" class="form-select" required>
                             <option value="">Seleccione un departamento</option>
                             <?php
                             $departamentos = [
-                                'Ahuachapán', 'Sonsonate', 'Santa Ana', 'La Libertad', 
-                                'Chalatenango', 'San Salvador', 'Cuscatlán', 'La Paz',
-                                'San Vicente', 'Cabañas', 'Usulután', 'San Miguel', 
-                                'Morazán', 'La Unión'
+                                'Ahuachapán',
+                                'Sonsonate',
+                                'Santa Ana',
+                                'La Libertad',
+                                'Chalatenango',
+                                'San Salvador',
+                                'Cuscatlán',
+                                'La Paz',
+                                'San Vicente',
+                                'Cabañas',
+                                'Usulután',
+                                'San Miguel',
+                                'Morazán',
+                                'La Unión'
                             ];
                             $zonaSeleccionada = $_POST['zona_trabajo'] ?? '';
                             foreach ($departamentos as $depto) {
@@ -202,4 +219,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 </body>
+
 </html>

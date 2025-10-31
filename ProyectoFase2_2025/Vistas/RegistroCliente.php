@@ -27,9 +27,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $_POST = [];
         
-    } catch (Exception $e) {
-        $mensaje = "Error al registrar: " . $e->getMessage();
-        $tipoMensaje = "danger";
+    } catch (PDOException $e) {
+        if ($e->getCode() == 23000) { // Código SQLSTATE para violación de restricción
+                $mensaje = "El correo ingresado ya está registrado. Por favor usa otro.";
+                $tipoMensaje = "warning";
+            } else {
+                $mensaje = "Error al registrar: " . $e->getMessage();
+                $tipoMensaje = "danger";
+            }
     }
 }
 ?>
