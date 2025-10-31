@@ -192,7 +192,7 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
                     <h3><i class="bi bi-shield-check"></i> Control de Calidad</h3>
                     <p>Administrador gestiona solicitudes y puede suspender cuentas por incumplimientos.</p>
                 </div>
-                <a href="Pago.php" class="btn btn-outline">Realizar pago</a>
+                
             </div>
         </section>
 

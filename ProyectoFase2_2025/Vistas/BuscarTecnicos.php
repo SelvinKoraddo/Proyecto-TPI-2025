@@ -24,6 +24,7 @@ if (!empty($especialidad)) {
             background: linear-gradient(0deg, #9340c7,#1f56a5);
             color: #fff;
             padding: 20px 0;
+            min-height: 100vh;
         }
 
         h2 {
