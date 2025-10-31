@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Contraseña</label>        
+                        <label for="contrasena" class="form-label">Contraseña</label>        
                         <input type="password" name="contrasena" class="form-control" required>
                         <small class="text-muted">Mínimo 6 caracteres</small>
                     </div>

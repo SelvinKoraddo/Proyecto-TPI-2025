@@ -189,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $rol === 'tecnico') {
                                         <?php else: ?>
                                             <td>
                                                 <?php if ($c['estado'] === 'finalizada' && $monto > 0): ?>
-                                                    <a href="Pago.php?id_cita=<?= $c['id_cita'] ?>"
+                                                    <a href="Pago.php?id_solicitud=<?= $c['id_solicitud'] ?>"
                                                         class="btn btn-success btn-sm">Pagar</a>
                                                 <?php else: ?>
                                                     <span class="text-muted">En proceso...</span>

@@ -10,8 +10,9 @@ if (!isset($_SESSION['Id'])) {
 }
 
 $id_usuario = $_SESSION['Id']; //user logeueado
-//$id_solicitud = $_GET['id_solicitud'] ?? null;
-$id_solicitud = 2; // ← Descomenta esta línea solo para pruebas
+
+$id_solicitud = $_GET['id_solicitud'] ?? null;
+
 if (!$id_solicitud) {
   die("ID de solicitud no proporcionado.");
 }
@@ -44,6 +45,8 @@ try {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pago de Solicitud #<?php echo $id_solicitud; ?></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <script>
     const PAGO_DATA = {
       id_solicitud: <?php echo (int) $id_solicitud; ?>,
@@ -70,11 +73,93 @@ try {
     <div class="content-box">
       <div id="paypal-button-container"></div>
     </div>
+        <a href="ListaCitas.php" class="btn-volver"><i class="bi bi-arrow-left"></i> Volver</a>             
+
     <div class="footer">
       <p>@TechFix S.A. de C.V.</p>
     </div>
   </div>
+   <style>
+    * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background-color:  #c5d4e0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card-container {
+            width: 100%;
+            max-width: 900px;
+            background: #003087;
+            border-radius: 24px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        .content-box {
+            background: white;
+            border-radius: 16px;
+            padding: 60px 40px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .content-box h2 {
+            color: #2c2e2f;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .footer {
+            text-align: center;
+        }
+
+        .footer p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            font-weight: 300;
+        }
+        .btn-volver {
+            background: #ff4d4d;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 25px;
+            font-weight: 500;
+           text-align: center;
+        }
+
+        .btn-volver:hover {
+            background: #006ab1;
+        }
+   </style>
 </body>
 
 </html>
