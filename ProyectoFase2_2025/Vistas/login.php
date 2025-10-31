@@ -13,6 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute(['correo' => $correo]);
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
+
     // Validación de usuario y contraseña
     if ($usuario && password_verify($contrasena, $usuario['contrasena_hash'])) {
         $_SESSION['Id'] = $usuario['id_usuario'];
