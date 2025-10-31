@@ -20,12 +20,11 @@ $stmt = $db->prepare("
            s.estado,
            s.fecha_programacion,
            s.direccion_servicio,
-           s.monto,
-           s.fecha_creado
+           s.monto
     FROM solicitud s
     LEFT JOIN usuarios u ON s.id_usuario = u.id_usuario
     LEFT JOIN usuarios t ON s.id_tecnico = t.id_usuario
-    ORDER BY s.fecha_creado DESC
+    ORDER BY s.id_solicitud DESC
 ");
 $stmt->execute();
 $solicitudes = $stmt->fetchAll(PDO::FETCH_ASSOC);
