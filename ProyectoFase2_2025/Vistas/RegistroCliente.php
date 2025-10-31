@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
         $mensaje = "Registro exitoso. ¡Ahora puedes iniciar sesión!";
         $tipoMensaje = "success";
+        
         $_POST = [];
         
     } catch (Exception $e) {
@@ -43,11 +44,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="../Vistas/css/estilos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex: 1;
+        }
+    </style>
 </head>
 
 <body>   
-
     <main class="container my-5">
         <section class="hero text-center">
             <h1>Registro de Clientes</h1>
@@ -105,4 +118,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         crossorigin="anonymous"></script>
 </body>
 </html>
-

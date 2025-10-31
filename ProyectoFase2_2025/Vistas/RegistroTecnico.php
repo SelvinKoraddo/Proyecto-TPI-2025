@@ -36,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
             $id_usuario = $db->lastInsertId();   
 
-            // Insertar en perfil_tecnico
             $stmt2 = $db->prepare("INSERT INTO perfil_tecnico (id_usuario, descripcion, tarifa_hora, zona_trabajo, estado, fecha_aprobado)
                                    VALUES (:id_usuario, :descripcion, :tarifa, :zona, 'pendiente', NULL)");
             $stmt2->execute([
@@ -82,7 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="../Vistas/css/estilos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-       
 </head>
 
 <body>   
