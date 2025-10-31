@@ -32,22 +32,6 @@ if ($id_tecnico) {
     <link rel="stylesheet" href="../Vistas/css/estilos.css">
 </head>
 <body>
-<header>
-    <nav class="container">
-        <div class="logo">
-            <i class="bi bi-wrench"> TechFix</i>
-        </div>
-        <ul class="nav-links">
-            <li><a href="../index.php#inic">Inicio</a></li>
-            <li><a href="../index.php#serv">Servicios</a></li>
-            <li><a href="../index.php#Cf">Cómo Funciona</a></li>
-        </ul>
-        <div class="auth-buttons">
-            <a href="../index.php#log" class="btn btn-outline">Iniciar Sesión</a>
-            <a href="../index.php#log" class="btn btn-primary">Registrarse</a>
-        </div>
-    </nav>
-</header>
 
 <main class="container my-5">
 <?php if (!$tecnico): ?>
@@ -108,15 +92,6 @@ if ($id_tecnico) {
                         </div>
                         <span class="badge bg-warning text-dark fs-6"><?= $promedio ?>/5</span>
                         <span class="text-muted">(<?= count($resenas) ?> <?= count($resenas) == 1 ? 'reseña' : 'reseñas' ?>)</span>
-                    </div>
-
-                    <div class="mt-4">
-                        <button class="btn btn-primary me-2">
-                            <i class="bi bi-calendar-check me-2"></i>Solicitar Servicio
-                        </button>
-                        <button class="btn btn-outline-primary">
-                            <i class="bi bi-chat-dots me-2"></i>Enviar Mensaje
-                        </button>
                     </div>
                 </div>
             </div>

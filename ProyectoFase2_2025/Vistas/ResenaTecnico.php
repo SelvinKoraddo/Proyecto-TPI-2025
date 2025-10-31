@@ -4,6 +4,11 @@ session_start();
 require_once("../Modelos/tecnicoModelo.php");
 require_once("../Modelos/resenaModelo.php");
 
+if (!isset($_SESSION['Rol']) || $_SESSION['Rol'] !== 'cliente') {
+    header('Location: Login.php');
+    exit;
+}
+
 $tecnicoModelo = new TecnicoModelo();
 $resenaModelo = new ResenaModelo();
 
@@ -50,22 +55,6 @@ if ($id_tecnico) {
 </head>
 
 <body>
-    <header>
-        <nav class="container">
-            <div class="logo">
-                <i class="bi bi-wrench"> TechFix</i>
-            </div>
-            <ul class="nav-links">
-                <li><a href="../index.php#inic">Inicio</a></li>
-                <li><a href="../index.php#serv">Servicios</a></li>
-                <li><a href="../index.php#Cf">Cómo Funciona</a></li>
-            </ul>
-            <div class="auth-buttons">
-                <a href="../index.php#log" class="btn btn-outline">Iniciar Sesión</a>
-                <a href="../index.php#log" class="btn btn-primary">Registrarse</a>
-            </div>
-        </nav>
-    </header>
 
     <?php if (isset($_GET['exito'])): ?>
     <div class="alert alert-success text-center mx-3 mt-3">Reseña registrada correctamente.</div>
@@ -174,6 +163,9 @@ if ($id_tecnico) {
             </div>
         </div>
     </section>
+<button class="btn btn-outline-secondary" onclick="history.back()">
+  <i class="bi bi-arrow-left"></i> Volver atrás
+</button>
 
 <?php endif; ?>
 

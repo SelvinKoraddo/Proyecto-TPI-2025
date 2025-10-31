@@ -57,5 +57,19 @@ class TecnicoModelo {
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function obtenerTecnicoPorId($id_tecnico) {
+    $sql = "SELECT t.id_tecnico, u.nombre_completo, u.correo, u.telefono,
+                   t.descripcion, t.tarifa_hora, t.zona_trabajo,
+                   GROUP_CONCAT(e.nombre SEPARATOR ', ') AS especialidades
+            FROM perfil_tecnico t
+            JOIN usuarios u ON t.id_usuario = u.id_usuario
+            LEFT JOIN tecnico_especialidad te ON te.id_tecnico = t.id_tecnico
+            LEFT JOIN especialidad e ON e.id_especialidad = te.id_especialidad
+            WHERE t.id_tecnico = ?
+            GROUP BY t.id_tecnico";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([$id_tecnico]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 }
 ?>
