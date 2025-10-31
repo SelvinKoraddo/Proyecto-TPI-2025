@@ -131,32 +131,50 @@ if ($id_tecnico) {
                 <?php if ($id_tecnico): ?>
     <hr class="my-5">
     <h2 class="text-center mb-4">Reseñas del Técnico</h2>
-
-    <?php if (empty($resenas)): ?>
-        <p class="text-center text-muted">Este técnico aún no tiene reseñas.</p>
-    <?php else: ?>
-        <div class="row justify-content-center">
-            <?php foreach ($resenas as $r): ?>
-                <div class="col-md-8 mb-3">
-                    <div class="card shadow-sm p-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <strong><?= htmlspecialchars($r['nombre_completo']) ?></strong>
-                            <span>
-                                <?php for ($i = 0; $i < $r['calificacion']; $i++): ?>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                <?php endfor; ?>
-                                <?php for ($i = $r['calificacion']; $i < 5; $i++): ?>
-                                    <i class="bi bi-star text-muted"></i>
-                                <?php endfor; ?>
-                            </span>
-                        </div>
-                        <p class="mt-2 mb-0"><?= htmlspecialchars($r['comentario']) ?></p>
-                        <small class="text-muted"><?= $r['fecha_creada'] ?></small>
+<section>
+        <div class="card shadow-sm">
+            <div class="card-header text-white d-flex justify-content-between align-items-center" style="background-color: #6a11cb;">
+                <h4 class="mb-0"><i class="bi bi-star-fill me-2"></i>Opiniones de Clientes</h4>
+                <a href="ResenaTecnico.php?id_tecnico=<?= $id_tecnico ?>" class="btn btn-light btn-sm">
+                    <i class="bi bi-pencil-square me-2"></i>Dejar una reseña
+                </a>
+            </div>
+            <div class="card-body p-3" style="max-height: 600px; overflow-y: auto;">
+                <?php if (empty($resenas)): ?>
+                    <div class="text-center py-5">
+                        <i class="bi bi-inbox" style="font-size: 3rem; color: #ccc;"></i>
+                        <p class="text-muted mt-3 mb-0">Este técnico aún no tiene reseñas. ¡Sé el primero en dejar tu opinión!</p>
                     </div>
-                </div>
-            <?php endforeach; ?>
+                <?php else: ?>
+                    <?php foreach ($resenas as $r): ?>
+                        <div class="card mb-3 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <h5 class="mb-1">
+                                            <i class="bi bi-person-circle text-primary me-2"></i>
+                                            <?= htmlspecialchars($r['nombre_completo']) ?>
+                                        </h5>
+                                        <small class="text-muted">
+                                            <i class="bi bi-clock me-1"></i>
+                                            <?= date('d/m/Y', strtotime($r['fecha_creada'])) ?>
+                                        </small>
+                                    </div>
+                                    <div>
+                                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                                            <i class="bi <?= ($i <= $r['calificacion']) ? 'bi-star-fill text-warning' : 'bi-star text-muted' ?>"></i>
+                                        <?php endfor; ?>
+                                    </div>
+                                </div>
+                                <p class="mb-0 mt-3"><?= htmlspecialchars($r['comentario']) ?></p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
         </div>
-    <?php endif; ?>
+    </section>
+
 <?php endif; ?>
 
             </div>
