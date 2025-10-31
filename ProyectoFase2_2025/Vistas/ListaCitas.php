@@ -148,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $rol === 'tecnico') {
                                         <td><?= ucfirst(htmlspecialchars($c['estado'])) ?></td>
                                         <td><?= htmlspecialchars($c['notas']) ?></td>
 
-                                        
+
                                         <td>
                                             <?php
                                             // Buscar monto si está disponible (desde tabla solicitud)
@@ -188,12 +188,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $rol === 'tecnico') {
                                             </td>
                                         <?php else: ?>
                                             <td>
-                                                <?php if ($c['estado'] === 'finalizada' && $monto > 0): ?>
-                                                    <a href="Pago.php?id_cita=<?= $c['id_cita'] ?>"
-                                                        class="btn btn-success btn-sm">Pagar</a>
-                                                <?php else: ?>
-                                                    <span class="text-muted">En proceso...</span>
-                                                <?php endif; ?>
+                                                <?php
+                                                // Buscar monto y verificar si ya existe un pago completado
+                                                $stmtMonto = $db->prepare("SELECT monto FROM solicitud WHERE id_solicitud = ?");
+                                                $stmtMonto->execute([$c['id_solicitud'] ?? null]);
+                                                $monto = $stmtMonto->fetchColumn();
+
+                                                $stmtPago = $db->prepare("SELECT estado FROM pago WHERE id_solicitud = ? LIMIT 1");
+                                                $stmtPago->execute([$c['id_solicitud'] ?? null]);
+                                                $estadoPago = $stmtPago->fetchColumn();
+
+                                                if ($c['estado'] === 'finalizada' && $monto > 0) {
+                                                    if ($estadoPago === 'completed') {
+                                                        echo "<span class='badge bg-success'><i class='bi bi-check-circle'></i> Pago completado</span>";
+                                                    } else {
+                                                        echo '<a href="Pago.php?id_solicitud=' . $c['id_solicitud'] . '" class="btn btn-success btn-sm">Pagar</a>';
+                                                    }
+                                                } else {
+                                                    echo "<span class='text-muted'>En proceso...</span>";
+                                                }
+                                                ?>
+
                                             </td>
                                         <?php endif; ?>
                                     </tr>
