@@ -101,7 +101,10 @@ if (!empty($especialidad)) {
                     <div class="col-md-4">
                         <div class="tech-card text-center">
                             <div class="tech-info">
-                                <h4><?= htmlspecialchars($tec['nombre_completo']) ?></h4>
+                                <h4>
+                                    <a href="DetallesTecnico.php?id_tecnico=<?php echo $tec['id_tecnico']; ?>" 
+                                    class="text-decoration-none text-dark fw-bold">
+                                    <?php echo htmlspecialchars($tec['nombre_completo']); ?></a></h4>
                                 <p><i class="bi bi-telephone-fill"></i> <?= htmlspecialchars($tec['telefono']) ?></p>
                                 <p>⚒️ <?= htmlspecialchars($tec['especialidad']) ?></p>
                                 <p>📍 <?= htmlspecialchars($tec['zona_trabajo']) ?></p>
