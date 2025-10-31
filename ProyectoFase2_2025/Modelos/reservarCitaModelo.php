@@ -26,7 +26,7 @@ class reservarCitaModelo {
         return $this->db->lastInsertId();
     }
 
-    // para insertar cita usando la solicitud recién creada
+    // para insertar cita usando la solicitud recien creada
     public function insertarCita($id_usuario, $id_tecnico, $fecha_inicio, $fecha_fin, $notas = "") {
         if (strtotime($fecha_inicio) >= strtotime($fecha_fin)) {
             return "La fecha de inicio debe ser anterior a la fecha de fin.";

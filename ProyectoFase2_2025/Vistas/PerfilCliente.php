@@ -2,7 +2,7 @@
 session_start();
 require_once '../Modelos/Conexion.php';
 
-// 🔐 Verificar sesión y rol
+//  Verificar sesion y rol
 if (!isset($_SESSION['Rol']) || $_SESSION['Rol'] !== 'cliente') {
     header('Location: Login.php');
     exit;
@@ -20,7 +20,7 @@ $sql = "SELECT nombre_completo, correo, telefono, rol, fecha_creado
 $stmt = $db->prepare($sql);
 $stmt->execute(['id' => $id_usuario]);
 $cliente = $stmt->fetch(PDO::FETCH_ASSOC);
-$primerNombre = explode(" ", $cliente['nombre_completo'])[0];//obtener primer nombre
+$primerNombre = explode(" ", $cliente['nombre_completo'])[0];
 
 if (!$cliente) {
     die("No se encontró el perfil del cliente.");

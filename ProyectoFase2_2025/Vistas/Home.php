@@ -13,14 +13,14 @@ $mensaje = '';
 
 $db = (new Conexion())->getConexion();
 
-//Obtener datos personales y técnicos del usuario
+//Obtener datos personales y tecnicos del usuario
 $sql = "SELECT nombre_completo FROM usuarios 
         WHERE id_usuario = :id_usuario";
 
 $stmt = $db->prepare($sql);
 $stmt->execute(['id_usuario' => $id_usuario]);
 $tecnico = $stmt->fetch(PDO::FETCH_ASSOC);
-$primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer nombre
+$primerNombre = explode(" ", $tecnico['nombre_completo'])[0];
 
 ?>
 <!DOCTYPE html>
@@ -51,7 +51,7 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
                 <li><a href="#inic">Inicio</a></li>
                 <li><a href="#serv">Servicios</a></li>
                 <li><a href="ListaCitas.php">Mis solicitudes</a></li>
-                <li><a href="#">Mensajería</a></li>                              
+                <li><a href="MensajeriaCliente.php">Mensajería</a></li>                              
                 <li><a href="#Cf">Cómo Funciona</a></li>
                 <li><a href="#historial">Historial</a></li>
                 <li><a href="PerfilCliente.php">Perfil</a></li>
@@ -64,7 +64,7 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
             </div>
         </nav>
     </header>
-    <!-- INICIO CARRUSEL BOOTSTRAP -->
+    
     <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -87,7 +87,7 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
-    </div><!-- FIN CARRUSEL BOOTSTRAP -->
+    </div>
 
     <main class="container">
         <section class="hero">
@@ -196,9 +196,9 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
             </div>
         </section>
 
-        <section class="cta-section"><!-- INICIO BLOQUE PARA HISTORIAL -->
+        <section class="cta-section">
             <h2 id="historial">Historial Servicios</h2>
-            <!-- Navegación con pestañas -->
+           
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="citas-tab" data-bs-toggle="tab" data-bs-target="#citas"
@@ -210,7 +210,7 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
                 </li>
             </ul>
 
-            <!-- Contenido de cada pestaña -->
+          
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active p-3" id="citas" role="tabpanel" aria-labelledby="citas-tab">
                     <?php
@@ -307,7 +307,7 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
                 </div>
             </div>
             </div>
-        </section>                   <!-- FIN BLOQUE PARA HISTORIAL -->
+        </section>                  
     </main>
 
     <footer>

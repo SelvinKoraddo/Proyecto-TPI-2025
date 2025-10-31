@@ -191,7 +191,7 @@ main {
   grid-template-columns: repeat(
     auto-fit,
     minmax(250px, 1fr)
-  ); /* se adaptan al ancho */
+  ); 
   gap: 30px;
   padding: 40px;
 }
@@ -199,7 +199,7 @@ main {
 .service-card {
   background-color: #fff;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* sombra*/
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
   text-align: center;
   padding: 0px 0px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -216,7 +216,7 @@ main {
 
 .service-card .service-img {
   width: 100%;
-  height: 250px; /* Ajusta la altura según lo que necesites */
+  height: 250px; 
   overflow: hidden;
   border-radius: 12px 12px 0 0;
   margin-bottom: 1rem;
@@ -319,7 +319,7 @@ footer {
   opacity: 1;
 }
 
-/*Para dispositivos moviles*/
+/*Para celulares*/
 @media (max-width: 768px) {
   .nav-links {
     display: none;

@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['Rol'] = $usuario['rol'];
         $_SESSION['Nombre'] = $usuario['nombre_completo'];
 
-        // para redirigir según el rol
+        // para redirigir segun el rol
           switch ($usuario['rol']) {
               case 'cliente':
                   header('Location: Home.php');

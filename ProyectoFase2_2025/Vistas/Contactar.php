@@ -15,10 +15,32 @@ $controlador = new mensajeControlador();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['contenido'])) {
     $contenido = trim($_POST['contenido']);
     $controlador->enviarMensaje($id_solicitud, $id_usuario, $contenido);
-    echo "<script>
-            alert('✅ Mensaje enviado con éxito.');
-            window.location.href='Home.php';
-          </script>";
+
+    
+    echo "<!DOCTYPE html>
+    <html lang='es'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>Mensaje Enviado</title>
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    </head>
+    <body style='background:#1f56a5; display:flex; align-items:center; justify-content:center; height:100vh;'>
+        <script>
+            Swal.fire({
+                title: '✅ Mensaje enviado correctamente',
+                text: 'Tu mensaje ha sido enviado con éxito.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#3659f3',
+                background: '#fff',
+                color: '#333'
+            }).then(() => {
+                window.location.href = 'http://localhost/Proyecto-TPI-2025/ProyectoFase2_2025/Vistas/Home.php';
+            });
+        </script>
+    </body>
+    </html>";
     exit;
 }
 ?>
@@ -97,8 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['contenido'])) {
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        .btn-volver {
-            background: #ff4d4d;
+        .btn-volver, .btn-mensajes {
             border: none;
             border-radius: 25px;
             color: #fff;
@@ -110,7 +131,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['contenido'])) {
             transition: all 0.3s ease;
         }
 
-        .btn-volver:hover {
+        .btn-volver {
+            background: #ff4d4d;
+        }
+
+        .btn-mensajes {
+            background: #00c853;
+            margin-left: 10px;
+        }
+
+        .btn-volver:hover, .btn-mensajes:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
@@ -123,7 +153,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['contenido'])) {
             <textarea name="contenido" rows="4" placeholder="Escribe tu mensaje..." required></textarea><br>
             <button type="submit" class="btn-enviar">Enviar</button>
         </form>
-        <a href="javascript:history.back()" class="btn-volver mt-3">Volver</a>
+
+        <div class="mt-3">
+            <a href="javascript:history.back()" class="btn-volver">Volver</a>
+            <a href="http://localhost/Proyecto-TPI-2025/ProyectoFase2_2025/Vistas/MensajeriaCliente.php" class="btn-mensajes">
+                <i class="bi bi-chat-left-text"></i> Ver mensajes
+            </a>
+        </div>
     </div>
 </body>
 </html>

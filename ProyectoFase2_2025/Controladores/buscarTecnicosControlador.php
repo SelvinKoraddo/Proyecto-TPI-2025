@@ -6,7 +6,7 @@ class buscarTecnicosControlador {
    
     public function obtenerTecnicos($especialidad) {
         if (empty($especialidad)) {
-            return []; // Retorna arreglo vacío si no hay especialidad
+            return []; // Retorna arreglo vacio si no hay especialidad
         }
 
         $modelo = new buscarTecnicoModelo();

@@ -11,7 +11,7 @@ class buscarTecnicoModelo {
 
     public function buscarPorEspecialidad($especialidad) {
         if (empty($especialidad)) {
-            return []; // Retorna el arreglo vacío si no hay especialidad
+            return []; // Retorna el arreglo vacio si no hay especialidad
         }
 
         $sql = "SELECT 

@@ -2,7 +2,7 @@
 session_start();
 require_once '../Modelos/Conexion.php';
 
-// 🔐 Verificar sesión y rol
+//  Verificar sesion y rol
 if (!isset($_SESSION['Rol']) || $_SESSION['Rol'] !== 'tecnico') {
     header('Location: Login.php');
     exit;
@@ -13,15 +13,14 @@ $mensaje = '';
 
 $db = (new Conexion())->getConexion();
 
-//Obtener datos personales y técnicos del usuario
+
 $sql = "SELECT nombre_completo FROM usuarios 
         WHERE id_usuario = :id_usuario";
 
 $stmt = $db->prepare($sql);
 $stmt->execute(['id_usuario' => $id_usuario]);
 $tecnico = $stmt->fetch(PDO::FETCH_ASSOC);
-$primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer nombre
-
+$primerNombre = explode(" ", $tecnico['nombre_completo'])[0];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -126,9 +125,9 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
             </div>
         </section>
 
-        <section class="cta-section"><!-- INICIO SECCION PARA MOSTRAR HISTORIAL CITAS -->
+        <section class="cta-section">
             <h2 id="historial">Historial Servicios</h2>
-            <!-- Navegación con pestañas -->
+           
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="citas-tab" data-bs-toggle="tab" data-bs-target="#citas"
@@ -140,7 +139,7 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
                 </li>
             </ul>
 
-            <!-- Contenido de cada pestaña -->
+          
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active p-3" id="citas" role="tabpanel" aria-labelledby="citas-tab">
                     <?php
@@ -253,7 +252,7 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
                 </div>
             </div>
             </div>
-        </section>                  <!-- FIN SECCION PARA MOSTRAR HISTORIAL CITAS -->
+        </section>                 
     </main>
 
     <footer>

@@ -25,7 +25,7 @@ if ($rol === 'cliente') {
     $citas = [];
 }
 
-// Procesar acciones del técnico (Aprobar, Rechazar, Finalizar)
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $rol === 'tecnico') {
     $id_cita = $_POST['id_cita'] ?? null;
     $accion = $_POST['accion'] ?? '';
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $rol === 'tecnico') {
                 break;
             case 'finalizar':
                 $horas = floatval($_POST['horas']);
-                // Obtener tarifa del técnico
+                // Obtener tarifa del tecnico
                 $stmt = $db->prepare("SELECT tarifa_hora FROM perfil_tecnico WHERE id_usuario = ?");
                 $stmt->execute([$id_usuario]);
                 $tarifa = floatval($stmt->fetchColumn());
@@ -151,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $rol === 'tecnico') {
                                         
                                         <td>
                                             <?php
-                                            // Buscar monto si está disponible (desde tabla solicitud)
+                                            
                                             $stmtMonto = $db->prepare("SELECT monto FROM solicitud WHERE id_solicitud = ?");
                                             $stmtMonto->execute([$c['id_solicitud'] ?? null]);
                                             $monto = $stmtMonto->fetchColumn();

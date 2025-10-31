@@ -5,16 +5,16 @@ class solicitudModelo {
     private $db;
 
     public function __construct() {
-        $conexion = new Conexion(); 
-        $this->db = $conexion->getConexion(); 
+        $conexion = new Conexion();
+        $this->db = $conexion->getConexion();
     }
 
     public function crearSolicitud($id_usuario, $id_tecnico, $descripcion, $estado, $fecha_programacion, $direccion_servicio, $monto) {
-        $sql = "INSERT INTO solicitud (id_usuario, id_tecnico, descripcion, estado, fecha_programacion, direccion_servicio, monto) 
+        $sql = "INSERT INTO solicitud (id_usuario, id_tecnico, descripcion, estado, fecha_programacion, direccion_servicio, monto)
                 VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id_usuario, $id_tecnico, $descripcion, $estado, $fecha_programacion, $direccion_servicio, $monto]);
-        return $this->db->lastInsertId(); 
+        return $this->db->lastInsertId();
     }
 
     public function obtenerSolicitudPorId($id_solicitud) {

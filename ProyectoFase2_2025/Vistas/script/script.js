@@ -1,9 +1,9 @@
-// Funcionalidad básica del formulario
+// Funcionalidad basica
 document.querySelector(".search-form").addEventListener("submit", function (e) {
   const serviceType = document.getElementById("service-type").value;
 
   if (!serviceType) {
-    e.preventDefault(); // Solo previene si no hay selección
+    e.preventDefault(); 
     alert("Por favor, selecciona un tipo de servicio");
     return;
   }
@@ -21,7 +21,7 @@ document.querySelectorAll(".service-card").forEach((card) => {
   });
 });
 
-// Navegación suave para anclas internas
+// Navegacion suave para anclas internas
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
     e.preventDefault();

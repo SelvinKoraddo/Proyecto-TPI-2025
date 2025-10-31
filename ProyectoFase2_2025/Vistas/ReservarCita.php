@@ -5,7 +5,7 @@ require_once "../Controladores/reservarCitaControlador.php";
 $controlador = new reservarCitaControlador();
 $mensaje = "";
 
-// Verifica si el usuario está autenticado
+// Verifica si el usuario esta autenticado
 if (!isset($_SESSION['Id'])) {
     $mensaje = "Error: Usuario no autenticado.";
 } elseif ($_SERVER['REQUEST_METHOD'] === "POST") {
@@ -99,7 +99,7 @@ if (!isset($_SESSION['Id'])) {
 
         
         .btn-reserva, .btn-volver {
-            flex: 1; /* mismo ancho */
+            flex: 1; 
             min-width: 130px;
             border: none;
             border-radius: 25px;

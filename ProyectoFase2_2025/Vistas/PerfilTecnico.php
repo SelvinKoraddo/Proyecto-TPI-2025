@@ -2,7 +2,7 @@
 session_start();
 require_once '../Modelos/Conexion.php';
 
-// 🔐 Verificar sesión y rol
+//  Verificar sesion y rol
 if (!isset($_SESSION['Rol']) || $_SESSION['Rol'] !== 'tecnico') {
     header('Location: Login.php');
     exit;
@@ -14,7 +14,7 @@ $mensaje = '';
 $db = (new Conexion())->getConexion();
 
 
-//Obtener datos personales y técnicos del usuario
+//Obtener datos personales y tecnicos del usuario
 $sql = "SELECT u.nombre_completo, u.telefono, u.correo,
                p.id_tecnico, p.tarifa_hora, p.zona_trabajo,
                p.descripcion, p.estado
@@ -25,7 +25,7 @@ $sql = "SELECT u.nombre_completo, u.telefono, u.correo,
 $stmt = $db->prepare($sql);
 $stmt->execute(['id_usuario' => $id_usuario]);
 $tecnico = $stmt->fetch(PDO::FETCH_ASSOC);
-$primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer nombre
+$primerNombre = explode(" ", $tecnico['nombre_completo'])[0];
 
 if (!$tecnico) {
     die("No se encontró el perfil del técnico.");
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'id' => $id_usuario
         ]);
 
-        //Actualizar especialidades (eliminar y volver a insertar)
+        //Actualizar especialidades 
         $del = $db->prepare("DELETE FROM tecnico_especialidad WHERE id_tecnico = ?");
         $del->execute([$tecnico['id_tecnico']]);
 
@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <h5 class="mb-3">Datos Profesionales</h5>
 
-      <!--Especialidades con su checkbox -->
+      
       <div class="mb-3">
         <label class="form-label">Especialidades</label>
         <div class="form-check bg-light p-3 rounded">
