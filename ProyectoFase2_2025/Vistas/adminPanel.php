@@ -82,7 +82,7 @@ if (isset($_GET['logout'])) {
                 <div class="card text-center shadow p-4 h-100">
                     <h4>⚙️ Configuración General</h4>
                     <p>Administra parámetros del sistema y base de datos.</p>
-                    <a href="configuracionGeneral.php" class="btn btn-primary">Entrar</a>
+                    <a href="#" class="btn btn-primary">Entrar</a>
                 </div>
             </div>
         </div>
