@@ -22,10 +22,9 @@ if (isset($_GET['logout'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechFix | Panel de Administración</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./css/estilos.css">
 </head>
 
-<body style="background: linear-gradient(180deg, #1f56a5, #9340c7); color: white;">
+<body>
 
     <!-- NAVBAR -->
     <nav class="navbar navbar-dark bg-dark p-3 fixed-top">
@@ -92,6 +91,16 @@ if (isset($_GET['logout'])) {
     <footer class="text-center mt-5 p-3 bg-dark fixed-bottom">
         <p class="mb-0">© 2025 TechFix | Administrador</p>
     </footer>
+    <style>
+        body{
+            font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+            background: linear-gradient(0deg, #9340c7, #1f56a5);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            padding: 20px;
+        }
+    </style>
 
 </body>
 </html>
