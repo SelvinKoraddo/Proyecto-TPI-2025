@@ -15,7 +15,7 @@ $db = (new Conexion())->getConexion();
 $stmt = $db->prepare("
     SELECT s.id_solicitud, 
            u.nombre_completo AS cliente, 
-           t.nombre_completo AS tecnico,
+           COALESCE(tu.nombre_completo, 'N/A') AS tecnico,
            s.descripcion,
            s.estado,
            s.fecha_programacion,
@@ -23,7 +23,8 @@ $stmt = $db->prepare("
            s.monto
     FROM solicitud s
     LEFT JOIN usuarios u ON s.id_usuario = u.id_usuario
-    LEFT JOIN usuarios t ON s.id_tecnico = t.id_usuario
+    LEFT JOIN perfil_tecnico pt ON s.id_tecnico = pt.id_tecnico
+    LEFT JOIN usuarios tu ON pt.id_usuario = tu.id_usuario
     ORDER BY s.id_solicitud DESC
 ");
 $stmt->execute();
