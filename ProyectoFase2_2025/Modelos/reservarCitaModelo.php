@@ -27,7 +27,7 @@ class reservarCitaModelo {
     }
 
     // para insertar cita usando la solicitud recién creada
-    public function insertarCita($id_usuario, $id_tecnico, $fecha_inicio, $fecha_fin, $notas = "") {
+    public function insertarCita($id_usuario, $id_tecnico, $fecha_inicio, $fecha_fin, $notas = "",$direccion_servicio = "Dirección pendiente") {
         if (strtotime($fecha_inicio) >= strtotime($fecha_fin)) {
             return "La fecha de inicio debe ser anterior a la fecha de fin.";
         }
@@ -38,7 +38,7 @@ class reservarCitaModelo {
             $notas ?: "Solicitud generada automáticamente",
             "pendiente",
             $fecha_inicio,
-            "Dirección pendiente",
+             $direccion_servicio,
             0.00
         );
 

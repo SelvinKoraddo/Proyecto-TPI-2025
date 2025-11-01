@@ -13,10 +13,11 @@ if (!isset($_SESSION['Id'])) {
     $id_tecnico = $_POST['id_tecnico'] ?? null;
     $fecha_inicio = $_POST['fecha_inicio'] ?? null;
     $fecha_fin = $_POST['fecha_fin'] ?? null;
+    $direccion_servicio = $_POST['direccion_servicio'] ?? "Dirección pendiente";
     $notas = $_POST['notas'] ?? "";
 
     if ($id_tecnico && $fecha_inicio && $fecha_fin) {
-        $resultado = $controlador->crearCita($id_usuario, $id_tecnico, $fecha_inicio, $fecha_fin, $notas);
+        $resultado = $controlador->crearCita($id_usuario, $id_tecnico, $fecha_inicio, $fecha_fin, $notas, $direccion_servicio);
         if ($resultado === true) {
             header("Location: ConfirmacionCita.php");
             exit();
@@ -168,7 +169,10 @@ if (!isset($_SESSION['Id'])) {
                     <label for="fecha_fin" class="form-label">Fecha Fin:</label>
                     <input type="datetime-local" class="form-control" name="fecha_fin" required>
                 </div>
-
+                <div class="mb-3">
+                    <label for="direccion_servicio" class="form-label">Direccion del servicio:</label>
+                    <textarea class="form-control" name="direccion_servicio" rows="1" placeholder="Indique su direccion..."></textarea>
+                </div>
                 <div class="mb-3">
                     <label for="notas" class="form-label">Notas:</label>
                     <textarea class="form-control" name="notas" rows="3" placeholder="Opcional..."></textarea>
