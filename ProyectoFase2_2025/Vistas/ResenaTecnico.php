@@ -72,16 +72,21 @@ if ($id_tecnico) {
             <div class="card p-4 shadow-lg" style="max-width: 600px; width: 100%; border-radius: 15px;">
                 <form action="../Controladores/resenaControlador.php" method="POST" id="formResena">
                     
+                    <?php
+                    $nombreTecnico = '';
+                    if ($id_tecnico) {
+                        foreach ($tecnicos as $t) {
+                            if ($t['id_tecnico'] == $id_tecnico) {
+                                $nombreTecnico = $t['nombre_completo'];
+                                break;
+                            }
+                        }
+                    }
+                    ?>
                     <div class="mb-4">
-                        <label class="form-label">Selecciona el Técnico</label>
-                        <select name="tecnico_id" class="form-select" required onchange="location = '?id_tecnico=' + this.value;">
-                            <option value="">-- Selecciona un técnico --</option>
-                            <?php foreach ($tecnicos as $tec): ?>
-                                <option value="<?= $tec['id_tecnico'] ?>" <?= ($id_tecnico == $tec['id_tecnico']) ? 'selected' : '' ?>>
-                                    <?= htmlspecialchars($tec['nombre_completo']) ?> - <?= htmlspecialchars($tec['zona_trabajo']) ?>
-                                </option>
-                                <?php endforeach; ?>
-                            </select>
+                        <label class="form-label">Técnico</label>
+                        <input type="text" class="form-control" value="<?= htmlspecialchars($nombreTecnico) ?>" disabled>
+                        <input type="hidden" name="tecnico_id" value="<?= htmlspecialchars($id_tecnico) ?>">
                     </div>
 
                     <input type="hidden" name="id_solicitud" value="<?= htmlspecialchars($_GET['id_solicitud'] ?? '') ?>">
@@ -119,54 +124,54 @@ if ($id_tecnico) {
                         <i class="bi bi-send-fill me-2"></i>Enviar Reseña
                     </button>
                 </form>
+                
                 <?php if ($id_tecnico): ?>
-    <hr class="my-5">
-    <h2 class="text-center mb-4">Reseñas del Técnico</h2>
-<section>
-        <div class="card shadow-sm">
-            <div class="card-header text-white d-flex justify-content-between align-items-center" style="background-color: #6a11cb;">
-                <h4 class="mb-0"><i class="bi bi-star-fill me-2"></i>Opiniones de Clientes</h4>
-            </div>
-            <div class="card-body p-3" style="max-height: 600px; overflow-y: auto;">
-                <?php if (empty($resenas)): ?>
-                    <div class="text-center py-5">
-                        <i class="bi bi-inbox" style="font-size: 3rem; color: #ccc;"></i>
-                        <p class="text-muted mt-3 mb-0">Este técnico aún no tiene reseñas. ¡Sé el primero en dejar tu opinión!</p>
-                    </div>
-                <?php else: ?>
-                    <?php foreach ($resenas as $r): ?>
-                        <div class="card mb-3 shadow-sm">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-start mb-2">
-                                    <div>
-                                        <h5 class="mb-1">
-                                            <i class="bi bi-person-circle text-primary me-2"></i>
-                                            <?= htmlspecialchars($r['nombre_completo']) ?>
-                                        </h5>
-                                        <small class="text-muted">
-                                            <i class="bi bi-clock me-1"></i>
-                                            <?= date('d/m/Y', strtotime($r['fecha_creada'])) ?>
-                                        </small>
+                    <hr class="my-5">
+                    <h2 class="text-center mb-4">Reseñas del Técnico</h2>
+                    <section>
+                        <div class="card shadow-sm">
+                            <div class="card-header text-white d-flex justify-content-between align-items-center" style="background-color: #6a11cb;">
+                                <h4 class="mb-0"><i class="bi bi-star-fill me-2"></i>Opiniones de Clientes</h4>
+                            </div>
+                            <div class="card-body p-3" style="max-height: 600px; overflow-y: auto;">
+                                <?php if (empty($resenas)): ?>
+                                    <div class="text-center py-5">
+                                        <i class="bi bi-inbox" style="font-size: 3rem; color: #ccc;"></i>
+                                        <p class="text-muted mt-3 mb-0">Este técnico aún no tiene reseñas. ¡Sé el primero en dejar tu opinión!</p>
                                     </div>
-                                    <div>
-                                        <?php for ($i = 1; $i <= 5; $i++): ?>
-                                            <i class="bi <?= ($i <= $r['calificacion']) ? 'bi-star-fill text-warning' : 'bi-star text-muted' ?>"></i>
-                                        <?php endfor; ?>
-                                    </div>
-                                </div>
-                                <p class="mb-0 mt-3"><?= htmlspecialchars($r['comentario']) ?></p>
+                                <?php else: ?>
+                                    <?php foreach ($resenas as $r): ?>
+                                        <div class="card mb-3 shadow-sm">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                    <div>
+                                                        <h5 class="mb-1">
+                                                            <i class="bi bi-person-circle text-primary me-2"></i>
+                                                            <?= htmlspecialchars($r['nombre_completo']) ?>
+                                                        </h5>
+                                                        <small class="text-muted">
+                                                            <i class="bi bi-clock me-1"></i>
+                                                            <?= date('d/m/Y', strtotime($r['fecha_creada'])) ?>
+                                                        </small>
+                                                    </div>
+                                                    <div>
+                                                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                                                            <i class="bi <?= ($i <= $r['calificacion']) ? 'bi-star-fill text-warning' : 'bi-star text-muted' ?>"></i>
+                                                        <?php endfor; ?>
+                                                    </div>
+                                                </div>
+                                                <p class="mb-0 mt-3"><?= htmlspecialchars($r['comentario']) ?></p>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             </div>
                         </div>
-                    <?php endforeach; ?>
+                    </section>
+                    <a href="Home.php" class="btn btn-outline-secondary mt-3">
+                        <i class="bi bi-arrow-left"></i> Regresar
+                    </a>
                 <?php endif; ?>
-            </div>
-        </div>
-    </section>
-    <a href="Home.php" class="btn btn-outline-secondary">
-        <i class="bi bi-arrow-left"></i> Regresar
-    </a>
-
-<?php endif; ?>
 
             </div>
         </section>
@@ -199,7 +204,6 @@ if ($id_tecnico) {
         crossorigin="anonymous"></script>
     
     <script>
-        
         document.getElementById('formResena').addEventListener('submit', function(e) {
             const comentario = document.querySelector('textarea[name="comentario"]').value;
             if (comentario.length < 10) {
