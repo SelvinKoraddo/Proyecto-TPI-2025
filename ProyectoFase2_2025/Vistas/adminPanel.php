@@ -77,16 +77,7 @@ if (isset($_GET['logout'])) {
                 </div>
             </div>
 
-            <!-- Configuración General -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card text-center shadow p-4 h-100">
-                    <h4>⚙️ Configuración General</h4>
-                    <p>Administra parámetros del sistema y base de datos.</p>
-                    <a href="configuracionGeneral.php" class="btn btn-primary">Entrar</a>
-                </div>
-            </div>
-        </div>
-    </div>
+           
 
     <!-- FOOTER FIJO -->
     <footer class="text-center mt-5 p-3 bg-dark fixed-bottom">
