@@ -167,6 +167,7 @@ CREATE TABLE `usuarios` (
   `fecha_creado` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
 --
 -- Índices para tablas volcadas
 --
