@@ -336,12 +336,13 @@ $primerNombre = explode(" ", $tecnico['nombre_completo'])[0];//obtener primer no
                 </div>
                 <div class="footer-section">
                     <h4>Tecnologías</h4>
-                    <p>HTML5 • CSS3 • JavaScript • Bootstrap • PHP • MySQL • API REST</p>
+                    <p>HTML5 • CSS3 • JavaScript • Bootstrap 5.3.8 • PHP • MySQL • API REST</p>
                 </div>
             </div>
         </div>
-    </footer>
+        <p class="foot">© 2025 TechFix | Sistema de Gestión de Servicios Técnicos</p>
 
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
