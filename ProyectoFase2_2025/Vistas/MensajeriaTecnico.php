@@ -78,6 +78,7 @@ if ($id_solicitud) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8">
     <title>Mensajería Técnico - TechFix</title>
@@ -96,9 +97,9 @@ if ($id_solicitud) {
         }
 
         .container {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
             padding: 30px;
             width: 100%;
             max-width: 900px;
@@ -112,10 +113,20 @@ if ($id_solicitud) {
             color: #fff;
         }
 
+        .Vermensajes {
+            background: linear-gradient(45deg, #3659f3, #764ba2);
+            color: #fff !important;
+            border: none;
+            border-radius: 12px;
+            padding: 6px 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
         .chat-box {
             max-height: 450px;
             overflow-y: auto;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 15px;
             margin-bottom: 20px;
@@ -143,7 +154,7 @@ if ($id_solicitud) {
         }
 
         .msg.received .bubble {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             color: #fff;
             border-radius: 15px 15px 15px 0;
             padding: 10px 14px;
@@ -176,7 +187,7 @@ if ($id_solicitud) {
             box-shadow: 0 0 10px rgba(118, 75, 162, 0.8);
         }
 
-        .btn-send {
+        .btn-enviar {
             background: linear-gradient(45deg, #3659f3, #764ba2);
             color: #fff;
             border: none;
@@ -186,12 +197,13 @@ if ($id_solicitud) {
             transition: all 0.3s ease;
         }
 
-        .btn-send:hover {
+        .btn-enviar:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        .back-btn, .home-btn {
+        .btn-volver,
+        .btn-inicio {
             border: none;
             border-radius: 25px;
             color: #fff;
@@ -203,17 +215,18 @@ if ($id_solicitud) {
             margin: 5px;
         }
 
-        .back-btn {
+        .btn-volver {
             background: #ff4d4d;
         }
 
-        .home-btn {
+        .btn-inicio {
             background: #00c853;
         }
 
-        .back-btn:hover, .home-btn:hover {
+        .btn-volver:hover,
+        .btn-inicio:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .table {
@@ -221,11 +234,11 @@ if ($id_solicitud) {
         }
 
         .table thead {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .table tbody tr:hover {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
         }
     </style>
 
@@ -243,73 +256,83 @@ if ($id_solicitud) {
         }, 5000);
     </script>
 </head>
+
 <body>
-<div class="container">
-    <?php if (!$id_solicitud): ?>
-        <h2><i class="bi bi-chat-dots-fill"></i> Conversaciones con Clientes</h2>
-        <?php if (empty($solicitudes)): ?>
-            <div class="alert alert-warning text-dark text-center">No tienes solicitudes aún.</div>
-        <?php else: ?>
-            <div class="table-responsive">
-                <table class="table table-hover align-middle text-light">
-                    <thead>
-                        <tr><th>ID Solicitud</th><th>Cliente</th><th>Acción</th></tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($solicitudes as $s): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($s['id_solicitud']) ?></td>
-                                <td><?= htmlspecialchars($s['cliente']) ?></td>
-                                <td>
-                                    <a href="MensajeriaTecnico.php?id_solicitud=<?= urlencode($s['id_solicitud']) ?>" class="btn btn-sm btn-light">
-                                        <i class="bi bi-chat-dots"></i> Ver mensajes
-                                    </a>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        <?php endif; ?>
-
-    <?php else: ?>
-        <h2><i class="bi bi-chat-fill"></i> Chat con <?= htmlspecialchars($nombre_cliente) ?></h2>
-
-        <div class="chat-box mb-3">
-            <?php if (empty($mensajes)): ?>
-                <p class="text-center small text-light opacity-75">Aún no hay mensajes en esta conversación.</p>
+    <div class="container">
+        <?php if (!$id_solicitud): ?>
+            <h2><i class="bi bi-chat-dots-fill"></i> Conversaciones con Clientes</h2>
+            <?php if (empty($solicitudes)): ?>
+                <div class="alert alert-warning text-dark text-center">No tienes solicitudes aún.</div>
             <?php else: ?>
-                <?php foreach ($mensajes as $msg): ?>
-                    <?php
-                        $esPropio = ($msg['remitente_id'] == $_SESSION['Id']);
-                        $clase = $esPropio ? 'sent' : 'received';
-                        $etiqueta = $esPropio ? 'Tú' : htmlspecialchars($msg['cliente']);
-                    ?>
-                    <div class="msg <?= $clase ?>">
-                        <div class="bubble">
-                            <strong><?= $etiqueta ?></strong><br>
-                            <?= nl2br(htmlspecialchars($msg['contenido'])) ?>
-                            <div class="meta"><?= htmlspecialchars($msg['fecha_envio']) ?></div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle text-light">
+                        <thead>
+                            <tr>
+                                <th>ID Solicitud</th>
+                                <th>Cliente</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($solicitudes as $s): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($s['id_solicitud']) ?></td>
+                                    <td><?= htmlspecialchars($s['cliente']) ?></td>
+                                    <td>
+                                        <a href="MensajeriaTecnico.php?id_solicitud=<?= urlencode($s['id_solicitud']) ?>"
+                                            class="Vermensajes">
+                                            <i class="bi bi-chat-dots"></i> Ver mensajes
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php endif; ?>
+            <div class="text-center mt-3">
+                <a href="/Proyecto-TPI-2025/ProyectoFase2_2025/Vistas/HomeTecnicos.php" class="btn-inicio">
+                    <i class="bi bi-house-door-fill"></i> Volver al inicio
+                </a>
+            <?php else: ?>
+                <h2><i class="bi bi-chat-fill"></i> Chat con <?= htmlspecialchars($nombre_cliente) ?></h2>
+
+                <div class="chat-box mb-3">
+                    <?php if (empty($mensajes)): ?>
+                        <p class="text-center small text-light opacity-75">Aún no hay mensajes en esta conversación.</p>
+                    <?php else: ?>
+                        <?php foreach ($mensajes as $msg): ?>
+                            <?php
+                            $esPropio = ($msg['remitente_id'] == $_SESSION['Id']);
+                            $clase = $esPropio ? 'sent' : 'received';
+                            $etiqueta = $esPropio ? 'Tú' : htmlspecialchars($msg['cliente']);
+                            ?>
+                            <div class="msg <?= $clase ?>">
+                                <div class="bubble">
+                                    <strong><?= $etiqueta ?></strong><br>
+                                    <?= nl2br(htmlspecialchars($msg['contenido'])) ?>
+                                    <div class="meta"><?= htmlspecialchars($msg['fecha_envio']) ?></div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+
+                <form method="post" class="composer">
+                    <textarea name="contenido" rows="3" placeholder="Escribe tu mensaje..." required></textarea>
+                    <button type="submit" class="btn-enviar"><i class="bi bi-send-fill"></i> Enviar</button>
+                </form>
+
+                <div class="text-center mt-3">
+                    <a href="/Proyecto-TPI-2025/ProyectoFase2_2025/Vistas/MensajeriaTecnico.php" class="btn-volver">
+                        <i class="bi bi-arrow-left-circle"></i> Volver a conversaciones
+                    </a>
+                    <a href="/Proyecto-TPI-2025/ProyectoFase2_2025/Vistas/HomeTecnicos.php" class="btn-inicio">
+                        <i class="bi bi-house-door-fill"></i> Volver al inicio
+                    </a>
+                </div>
             <?php endif; ?>
         </div>
-
-        <form method="post" class="composer">
-            <textarea name="contenido" rows="3" placeholder="Escribe tu mensaje..." required></textarea>
-            <button type="submit" class="btn-send"><i class="bi bi-send-fill"></i> Enviar</button>
-        </form>
-
-        <div class="text-center mt-3">
-            <a href="/Proyecto-TPI-2025/ProyectoFase2_2025/Vistas/ListaSolicitudes.php" class="back-btn">
-                <i class="bi bi-arrow-left-circle"></i> Volver a conversaciones
-            </a>
-            <a href="/Proyecto-TPI-2025/ProyectoFase2_2025/Vistas/HomeTecnicos.php" class="home-btn">
-                <i class="bi bi-house-door-fill"></i> Volver al inicio
-            </a>
-        </div>
-    <?php endif; ?>
-</div>
 </body>
+
 </html>

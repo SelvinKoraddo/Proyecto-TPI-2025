@@ -37,7 +37,7 @@ paypal.Buttons({
 
         if (result.success) {
           alert("✅ Pago realizado con éxito. ¡Gracias!");
-          window.location.href = "Home.php"; // Redirigir al home después de pagar
+          window.location.href = "ConfirmacionPago.php"; // Redirigir al home después de pagar
         } else {
           alert("⚠️ Error al registrar el pago: " + (result.error || "desconocido"));
         }
