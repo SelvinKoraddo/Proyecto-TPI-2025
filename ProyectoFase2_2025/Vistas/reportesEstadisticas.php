@@ -51,10 +51,30 @@ $roles = $queryRoles->fetchAll(PDO::FETCH_ASSOC);
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
+    html, body {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+    }
+
     body {
       background: linear-gradient(180deg, #1f56a5, #9340c7);
       color: white;
     }
+
+    main {
+      flex: 1;
+    }
+
+    footer {
+      margin-top: auto;
+      background-color: #212529;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+    }
+
     .card {
       border-radius: 12px;
     }
@@ -91,7 +111,7 @@ $roles = $queryRoles->fetchAll(PDO::FETCH_ASSOC);
     </div>
   </nav>
 
-  <div class="container my-5">
+  <main class="container my-5">
 
     <!-- === Tarjetas resumen === -->
     <div class="row text-center mb-4">
@@ -141,10 +161,10 @@ $roles = $queryRoles->fetchAll(PDO::FETCH_ASSOC);
         </div>
       </div>
     </div>
-  </div>
+  </main>
 
-  <footer class="text-center mt-5 p-3 bg-dark">
-    <p class="mb-0">© 2025 TechFix | Administrador</p>
+  <footer>
+    © 2025 TechFix | Administrador
   </footer>
 
   <script>
@@ -221,5 +241,6 @@ $roles = $queryRoles->fetchAll(PDO::FETCH_ASSOC);
   </script>
 </body>
 </html>
+
 
 

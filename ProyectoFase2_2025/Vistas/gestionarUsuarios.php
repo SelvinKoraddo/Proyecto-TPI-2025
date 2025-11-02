@@ -45,19 +45,41 @@ try {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
+        html, body {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
+
         body {
             background: linear-gradient(180deg, #1f56a5, #9340c7);
             color: white;
         }
+
+        main {
+            flex: 1;
+        }
+
+        footer {
+            margin-top: auto;
+            background-color: #212529;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+
         .card {
             background-color: #1a1a1a;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
+
         table {
             background-color: #212529;
             color: white;
         }
+
         .search-input {
             width: 100%;
             padding: 10px;
@@ -66,9 +88,11 @@ try {
             border: none;
             outline: none;
         }
+
         .badge { font-size: 0.9rem; }
     </style>
 </head>
+
 <body>
 <nav class="navbar navbar-dark bg-dark p-3">
     <div class="container-fluid">
@@ -77,7 +101,7 @@ try {
     </div>
 </nav>
 
-<div class="container mt-5">
+<main class="container mt-5">
     <h2 class="text-center mb-4">Gestión de Usuarios Registrados</h2>
 
     <!-- 🔍 Barra de búsqueda -->
@@ -199,64 +223,6 @@ try {
                             <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminar<?= $u['id_usuario'] ?>">Eliminar</button>
                         </td>
                     </tr>
-
-                    <!-- Reutilizamos los mismos modales -->
-                    <div class="modal fade" id="editar<?= $u['id_usuario'] ?>" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content text-dark">
-                                <form method="POST">
-                                    <div class="modal-header bg-primary text-white">
-                                        <h5>Editar Usuario</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <input type="hidden" name="id_usuario" value="<?= $u['id_usuario'] ?>">
-                                        <div class="mb-3"><label>Nombre</label>
-                                            <input type="text" name="nombre_completo" class="form-control" value="<?= htmlspecialchars($u['nombre_completo']) ?>" required>
-                                        </div>
-                                        <div class="mb-3"><label>Correo</label>
-                                            <input type="email" name="correo" class="form-control" value="<?= htmlspecialchars($u['correo']) ?>" required>
-                                        </div>
-                                        <div class="mb-3"><label>Teléfono</label>
-                                            <input type="text" name="telefono" class="form-control" value="<?= htmlspecialchars($u['telefono']) ?>" required>
-                                        </div>
-                                        <div class="mb-3"><label>Rol</label>
-                                            <select name="rol" class="form-select">
-                                                <option value="admin" <?= $u['rol']=='admin'?'selected':'' ?>>Admin</option>
-                                                <option value="tecnico" <?= $u['rol']=='tecnico'?'selected':'' ?>>Técnico</option>
-                                                <option value="cliente" <?= $u['rol']=='cliente'?'selected':'' ?>>Cliente</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="submit" name="editar" class="btn btn-primary">Guardar</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal fade" id="eliminar<?= $u['id_usuario'] ?>" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content text-dark">
-                                <form method="POST">
-                                    <div class="modal-header bg-danger text-white">
-                                        <h5>Eliminar Usuario</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>¿Seguro que deseas eliminar a <strong><?= htmlspecialchars($u['nombre_completo']) ?></strong>?</p>
-                                        <input type="hidden" name="id_usuario" value="<?= $u['id_usuario'] ?>">
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="submit" name="eliminar" class="btn btn-danger">Eliminar</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                     <?php endforeach; ?>
                 </tbody>
             </table>
@@ -286,91 +252,30 @@ try {
                             <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminar<?= $u['id_usuario'] ?>">Eliminar</button>
                         </td>
                     </tr>
-
-                    <!-- Modales -->
-                    <div class="modal fade" id="editar<?= $u['id_usuario'] ?>" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content text-dark">
-                                <form method="POST">
-                                    <div class="modal-header bg-primary text-white">
-                                        <h5>Editar Usuario</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <input type="hidden" name="id_usuario" value="<?= $u['id_usuario'] ?>">
-                                        <div class="mb-3"><label>Nombre</label>
-                                            <input type="text" name="nombre_completo" class="form-control" value="<?= htmlspecialchars($u['nombre_completo']) ?>" required>
-                                        </div>
-                                        <div class="mb-3"><label>Correo</label>
-                                            <input type="email" name="correo" class="form-control" value="<?= htmlspecialchars($u['correo']) ?>" required>
-                                        </div>
-                                        <div class="mb-3"><label>Teléfono</label>
-                                            <input type="text" name="telefono" class="form-control" value="<?= htmlspecialchars($u['telefono']) ?>" required>
-                                        </div>
-                                        <div class="mb-3"><label>Rol</label>
-                                            <select name="rol" class="form-select">
-                                                <option value="admin" <?= $u['rol']=='admin'?'selected':'' ?>>Admin</option>
-                                                <option value="tecnico" <?= $u['rol']=='tecnico'?'selected':'' ?>>Técnico</option>
-                                                <option value="cliente" <?= $u['rol']=='cliente'?'selected':'' ?>>Cliente</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="submit" name="editar" class="btn btn-primary">Guardar</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal fade" id="eliminar<?= $u['id_usuario'] ?>" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content text-dark">
-                                <form method="POST">
-                                    <div class="modal-header bg-danger text-white">
-                                        <h5>Eliminar Usuario</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>¿Seguro que deseas eliminar a <strong><?= htmlspecialchars($u['nombre_completo']) ?></strong>?</p>
-                                        <input type="hidden" name="id_usuario" value="<?= $u['id_usuario'] ?>">
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="submit" name="eliminar" class="btn btn-danger">Eliminar</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
     </div>
-</div>
+</main>
 
-<footer class="text-center mt-5 p-3 bg-dark">
-    <p class="mb-0">© 2025 TechFix | Administrador</p>
+<footer>
+    © 2025 TechFix | Administrador
 </footer>
 
 <script>
 // 🔍 Búsqueda global entre todas las tablas
 document.getElementById('buscarUsuario').addEventListener('input', function() {
     const valor = this.value.toLowerCase().trim();
-
-    // Recorremos todas las tablas
     document.querySelectorAll('.tablaUsuarios tbody tr').forEach(fila => {
         const textoFila = fila.textContent.toLowerCase();
-        if (textoFila.includes(valor)) {
-            fila.style.display = '';
-        } else {
-            fila.style.display = 'none';
-        }
+        fila.style.display = textoFila.includes(valor) ? '' : 'none';
     });
 });
 </script>
+</body>
+</html>
+
 
 
 
