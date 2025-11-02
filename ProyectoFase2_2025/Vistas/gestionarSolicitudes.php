@@ -101,8 +101,8 @@ $solicitudes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
 </div>
 
-<footer class="text-center mt-5 p-3 bg-dark text-white">
-    © 2025 TechFix | Administrador
+<footer class="text-center mt-5 p-3 bg-dark">
+    <p class="mb-0">© 2025 TechFix | Administrador</p>
 </footer>
 
 <script>
